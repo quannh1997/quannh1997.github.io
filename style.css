@@ -1,0 +1,59 @@
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background: url('assets/bg.jpg') no-repeat center/cover;
+  color: #333;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background: rgba(255, 255, 255, 0.8);
+  padding: 20px;
+  border-radius: 12px;
+  margin: 20px;
+}
+
+.gallery img {
+  width: 80%;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.countdown {
+  background: rgba(255, 255, 255, 0.85);
+  margin: 20px auto;
+  padding: 15px;
+  border-radius: 12px;
+  width: 300px;
+}
+
+#wishForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+input, textarea {
+  width: 80%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background: #ff7eb9;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #ff4e88;
+}
