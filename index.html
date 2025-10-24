@@ -1,45 +1,138 @@
 <!DOCTYPE html>
 <html lang="vi">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Đám cưới Quân 💍 Quyên</title>
-  <link rel="stylesheet" href="style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiệp Cưới Online - [Cô Dâu] &amp; [Chú Rể]</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500&display=swap"
+        rel="stylesheet">
 </head>
+
 <body>
-  <header>
-    <h1>💖 Đám cưới Quân & Quỳnh 💖</h1>
-    <p>20.12.2025 | Nhà hàng Hoa Sen, Hà Nội</p>
-  </header>
+    <div class="petal-container"></div>
 
-  <section class="gallery">
-    <img src="assets/1M0A0079.jpg" alt="1M0A0079" />
-    <img src="assets/1M0A0083.jpg" alt="1M0A0083" />
-    <img src="assets/1M0A0090.jpg" alt="1M0A0090" />
-    <img src="assets/1M0A0095.jpg" alt="1M0A0095" />
-    <img src="assets/1M0A0100.jpg" alt="1M0A0100" />
-    <img src="assets/1M0A0105.jpg" alt="1M0A0105" />
-  </section>
+    <button id="music-toggle">🎵</button>
+    <audio id="wedding-music" src="music/wedding-song.mp3" loop></audio>
 
-  <section class="countdown">
-    <h2>⏳ Đếm ngược đến ngày cưới</h2>
-    <div id="timer"></div>
-  </section>
+    <section id="cover" class="sectionCover" style="background-image: url('assets/1M0A0079.jpg');">
+        <div class="content">
+            <h1>Tạ Quyên <span class="heart">&hearts;</span> Hồng Quân</h1>
+            <p>Trân trọng kính mời bạn đến chung vui!</p>
+            <div id="countdown">
+                <h2>Ngày Chung Đôi</h2>
+                <div class="timer">
+                    <div class="time-box"><span id="days">00</span> Ngày</div>
+                    <div class="time-box"><span id="hours">00</span> Giờ</div>
+                    <div class="time-box"><span id="minutes">00</span> Phút</div>
+                    <div class="time-box"><span id="seconds">00</span> Giây</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="wish">
-    <h2>💌 Gửi lời chúc đến chúng mình</h2>
-    <form id="wishForm">
-      <input name="name" placeholder="Tên của bạn" required />
-      <textarea name="message" placeholder="Lời chúc 💕" required></textarea>
-      <button type="submit">Gửi lời chúc</button>
-    </form>
-    <div id="status"></div>
-  </section>
+    <section id="story" class="section">
+        <div class="content">
+            <h2>Câu Chuyện Tình Yêu</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-icon">❤️</div>
+                    <div class="timeline-content">
+                        <h3>2020 - Lần Đầu Gặp Gỡ</h3>
+                        <p>Chúng mình gặp nhau tại một quán cà phê chiều mưa. Định mệnh đã bắt đầu từ ánh nhìn đầu tiên
+                            ấy.</p>
+                        <img src="assets/story-1.jpg" alt="Câu chuyện 1">
+                    </div>
+                </div>
 
-  <footer>
-    <p>Made with ❤️ by Quân</p>
-  </footer>
+                <div class="timeline-item">
+                    <div class="timeline-icon">💍</div>
+                    <div class="timeline-content">
+                        <h3>2024 - Lời Cầu Hôn</h3>
+                        <p>Dưới bầu trời đầy sao, anh ấy đã quỳ xuống và... mình đã nói "Em đồng ý!".</p>
+                        <img src="assets/story-2.jpg" alt="Câu chuyện 2">
+                    </div>
+                </div>
 
-  <script src="script.js"></script>
+                <div class="timeline-item">
+                    <div class="timeline-icon">🎉</div>
+                    <div class="timeline-content">
+                        <h3>2025 - Ngày Cưới</h3>
+                        <p>Một hành trình mới mở ra. Cảm ơn bạn đã ở đây để chứng kiến và chúc phúc cho chúng mình.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="event" class="section">
+        <div class="content">
+            <h2>Thông Tin Lễ Cưới</h2>
+            <div class="event-details">
+                <div class="event-box">
+                    <h3>Lễ Vu Quy (Nhà Gái)</h3>
+                    <p><strong>Giờ:</strong> 09:00 - Thứ Bảy, 15.11.2025</p>
+                    <p><strong>Địa điểm:</strong> [Địa chỉ nhà gái]</p>
+                    <a href="[Link Google Maps nhà gái]" target="_blank" class="map-button">Xem Bản Đồ</a>
+                </div>
+
+                <div class="event-box">
+                    <h3>Tiệc Cưới (Nhà Hàng)</h3>
+                    <p><strong>Giờ:</strong> 18:00 - Thứ Bảy, 15.11.2025</p>
+                    <p><strong>Địa điểm:</strong> [Tên nhà hàng], [Địa chỉ nhà hàng]</p>
+                    <a href="[Link Google Maps nhà hàng]" target="_blank" class="map-button">Xem Bản Đồ</a>
+                </div>
+            </div>
+
+            <p class="dresscode"><strong>Dresscode:</strong> Trắng, Be, Xanh Pastel</p>
+        </div>
+    </section>
+
+    <section id="album" class="section">
+        <div class="content">
+            <h2>Album Kỷ Niệm</h2>
+            <div class="gallery">
+                <img src="assets/1M0A0200.jpg" alt="Ảnh 1">
+                <img src="assets/1M0A0250.jpg" alt="Ảnh 2">
+                <img src="assets/1M0A0300.jpg" alt="Ảnh 3">
+                <img src="assets/1M0A0350.jpg" alt="Ảnh 4">
+                <img src="assets/1M0A0400.jpg" alt="Ảnh 5">
+                <img src="assets/1M0A0450.jpg" alt="Ảnh 6">
+            </div>
+        </div>
+    </section>
+
+    <section id="guestbook" class="section">
+        <div class="content">
+            <h2>Gửi Lời Chúc</h2>
+            <form id="guestbook-form">
+                <input type="text" id="guest-name" placeholder="Tên của bạn" required>
+                <textarea id="guest-message" placeholder="Lời chúc của bạn..." rows="4" required></textarea>
+                <button type="submit">Gửi Lời Chúc</button>
+            </form>
+
+            <div class="wishes-list">
+                <h3>Các lời chúc đã gửi:</h3>
+                <div class="wish-item">
+                    <strong>Bạn Bè:</strong>
+                    <p>Chúc hai bạn trăm năm hạnh phúc, sớm có quý tử nhé!</p>
+                </div>
+
+                <div class="wish-item">
+                    <strong>Đồng Nghiệp:</strong>
+                    <p>Chúc mừng hạnh phúc Minh Khải và Phương Anh. Mãi mặn nồng nhé!</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>Cảm ơn bạn đã đến chung vui!</p>
+        <p>&copy; 2025 [Tên Cô Dâu] &amp; [Tên Chú Rể]</p>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
+
 </html>
