@@ -1,59 +1,376 @@
+/* --- CÀI ĐẶT CHUNG --- */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  background: url('assets/bg.jpg') no-repeat center/cover;
-  color: #333;
-  text-align: center;
-  margin: 0;
-  padding: 0;
+    font-family: 'Quicksand', sans-serif;
+    margin: 0;
+    padding: 0;
+    color: #333;
+    line-height: 1.6;
+    background-color: #fdfdfd;
 }
 
-header {
-  background: rgba(255, 255, 255, 0.8);
-  padding: 20px;
-  border-radius: 12px;
-  margin: 20px;
+.section {
+    padding: 60px 20px;
+    text-align: center;
+    overflow: hidden; /* Quan trọng để giữ hiệu ứng cánh hoa */
+    position: relative; /* Quan trọng cho hiệu ứng */
 }
 
+.content {
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2; /* Đảm bảo nội dung nổi trên cánh hoa */
+}
+
+h1, h2 {
+    font-family: 'Dancing Script', cursive;
+    font-weight: 700;
+    color: #d32f2f; /* Màu đỏ lãng mạn */
+}
+
+h1 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+}
+
+h2 {
+    font-size: 2.8rem;
+    margin-bottom: 30px;
+}
+
+h3 {
+    font-family: 'Quicksand', sans-serif;
+    font-weight: 500;
+    color: #555;
+    font-size: 1.4rem;
+}
+
+p {
+    font-size: 1.1rem;
+    color: #666;
+}
+
+/* --- HIỆU ỨNG CÁNH HOA RƠI --- */
+.petal-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Cho phép click xuyên qua */
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Tạo 20 cánh hoa */
+.petal-container::before, .petal-container::after,
+.petal-container div::before, .petal-container div::after {
+    content: '🌸'; /* Bạn có thể đổi thành 🌹 hoặc 💖 */
+    position: absolute;
+    top: -10%;
+    font-size: 1.2rem;
+    opacity: 0.7;
+    animation: fall 15s linear infinite;
+}
+
+/* Phân bổ các cánh hoa và thời gian rơi khác nhau */
+.petal-container::before { left: 5%; animation-delay: 0s; }
+.petal-container::after { left: 15%; animation-delay: -5s; font-size: 0.8rem; }
+.petal-container div:nth-child(1)::before { left: 25%; animation-delay: -10s; }
+.petal-container div:nth-child(1)::after { left: 35%; animation-delay: -3s; font-size: 1rem; }
+.petal-container div:nth-child(2)::before { left: 45%; animation-delay: -7s; }
+.petal-container div:nth-child(2)::after { left: 55%; animation-delay: -12s; font-size: 0.8rem; }
+.petal-container div:nth-child(3)::before { left: 65%; animation-delay: -2s; }
+.petal-container div:nth-child(3)::after { left: 75%; animation-delay: -8s; font-size: 1rem; }
+.petal-container div:nth-child(4)::before { left: 85%; animation-delay: -14s; }
+.petal-container div:nth-child(4)::after { left: 95%; animation-delay: -6s; font-size: 0.8rem; }
+
+/* Animation rơi */
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0.2;
+    }
+}
+
+
+/* --- NÚT ÂM NHẠC --- */
+#music-toggle {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: rgba(211, 47, 47, 0.8);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+    transition: background-color 0.3s;
+}
+
+#music-toggle:hover {
+    background-color: rgba(211, 47, 47, 1);
+}
+
+/* --- 1. TRANG BÌA --- */
+.cover {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed; /* Hiệu ứng parallax */
+    color: white;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+.cover h1 {
+    color: white;
+}
+.cover p {
+    color: white;
+    font-size: 1.3rem;
+}
+.heart {
+    color: #ff4757;
+    font-size: 3rem;
+}
+
+#countdown h2 {
+    color: white;
+    font-size: 2rem;
+    margin-top: 30px;
+}
+.timer {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+.time-box {
+    background: rgba(0, 0, 0, 0.4);
+    padding: 10px 15px;
+    border-radius: 8px;
+}
+.time-box span {
+    display: block;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+/* --- 2. CÂU CHUYỆN --- */
+.timeline {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
+}
+/* Đường kẻ dọc */
+.timeline::after {
+    content: '';
+    position: absolute;
+    width: 3px;
+    background-color: #d32f2f;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1.5px;
+    z-index: -1;
+}
+.timeline-item {
+    padding: 10px 40px;
+    position: relative;
+    width: 50%;
+}
+/* Căn lề trái/phải */
+.timeline-item:nth-child(odd) { left: 0; text-align: right; }
+.timeline-item:nth-child(even) { left: 50%; text-align: left; }
+
+.timeline-content {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+.timeline-content img {
+    width: 100%;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+.timeline-icon {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    text-align: center;
+    background: #d32f2f;
+    color: white;
+    border-radius: 50%;
+    top: 30px;
+    z-index: 10;
+    font-size: 1.2rem;
+}
+.timeline-item:nth-child(odd) .timeline-icon { right: 20px; }
+.timeline-item:nth-child(even) .timeline-icon { left: 20px; }
+
+
+/* --- 3. SỰ KIỆN --- */
+.event-details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-top: 30px;
+}
+.event-box {
+    background: #fff;
+    border: 1px solid #eee;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+    width: 300px;
+}
+.map-button {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    background-color: #d32f2f;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+.map-button:hover {
+    background-color: #b71c1c;
+}
+.dresscode {
+    margin-top: 30px;
+    font-size: 1.2rem;
+    font-weight: 500;
+}
+
+/* --- 4. ALBUM ẢNH --- */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
 .gallery img {
-  width: 80%;
-  border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+.gallery img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-.countdown {
-  background: rgba(255, 255, 255, 0.85);
-  margin: 20px auto;
-  padding: 15px;
-  border-radius: 12px;
-  width: 300px;
+/* --- 5. LỜI CHÚC --- */
+#guestbook-form {
+    max-width: 600px;
+    margin: 0 auto 30px auto;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+#guestbook-form input,
+#guestbook-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: 'Quicksand', sans-serif;
+    font-size: 1rem;
+    box-sizing: border-box; /* Quan trọng */
+}
+#guestbook-form button {
+    padding: 12px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    background-color: #d32f2f;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+#guestbook-form button:hover {
+    background-color: #b71c1c;
 }
 
-#wishForm {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  margin-top: 10px;
+.wishes-list {
+    max-width: 600px;
+    margin: 30px auto 0 auto;
+    text-align: left;
+}
+.wish-item {
+    background: #f9f9f9;
+    padding: 15px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border-left: 4px solid #d32f2f;
+}
+.wish-item strong {
+    color: #333;
+}
+.wish-item p {
+    margin: 5px 0 0 0;
+    color: #555;
 }
 
-input, textarea {
-  width: 80%;
-  padding: 10px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
+/* --- FOOTER --- */
+footer {
+    background: #f1f1f1;
+    color: #777;
+    padding: 30px 20px;
+    text-align: center;
+    font-size: 0.9rem;
+}
+footer p {
+    color: #777;
+    margin: 5px 0;
 }
 
-button {
-  background: #ff7eb9;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
-  color: white;
-  font-weight: bold;
-  cursor: pointer;
-  transition: 0.2s;
-}
 
-button:hover {
-  background: #ff4e88;
+/* --- TƯƠNG THÍCH ĐIỆN THOẠI (Responsive) --- */
+@media (max-width: 768px) {
+    h1 { font-size: 2.5rem; }
+    h2 { font-size: 2.2rem; }
+    .heart { font-size: 2rem; }
+
+    /* Timeline trên điện thoại -> thành 1 cột */
+    .timeline::after {
+        left: 20px;
+    }
+    .timeline-item {
+        width: 100%;
+        padding-left: 60px;
+        padding-right: 15px;
+        left: 0 !important; /* Ghi đè */
+        text-align: left !important; /* Ghi đè */
+    }
+    .timeline-icon {
+        left: 0 !important; /* Ghi đè */
+    }
+    
+    /* Album ảnh trên điện thoại -> 2 cột */
+    .gallery {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .event-box {
+        width: 100%;
+    }
 }
