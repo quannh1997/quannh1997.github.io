@@ -15,6 +15,19 @@ body {
     position: relative; /* Quan trọng cho hiệu ứng */
 }
 
+.sectionCover {
+  background-size: cover;            /* Ảnh phủ toàn bộ khung */
+  background-position: center center; /* Căn giữa cả ngang và dọc */
+  background-repeat: no-repeat;       /* Không lặp lại ảnh */
+  height: 100vh;                      /* Chiều cao full màn hình */
+  display: flex;
+  align-items: center;                /* Căn giữa nội dung theo chiều dọc */
+  justify-content: center;            /* Căn giữa nội dung theo chiều ngang */
+  text-align: center;
+  color: white;                       /* Cho text nổi bật */
+  position: relative;
+}
+
 .content {
     max-width: 900px;
     margin: 0 auto;
