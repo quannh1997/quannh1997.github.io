@@ -1,138 +1,256 @@
 <!DOCTYPE html>
 <html lang="vi">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thiệp Cưới Online - [Cô Dâu] &amp; [Chú Rể]</title>
+    <title>Thiệp Cưới - Hồng Quân & Tạ Quyên</title>
     <link rel="stylesheet" href="style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Quicksand:wght@400;500&display=swap"
-        rel="stylesheet">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-
 <body>
-    <div class="petal-container"></div>
+
+    <div class="hearts-container">
+        </div>
 
     <button id="music-toggle">🎵</button>
-    <audio id="wedding-music" src="music/wedding-song.mp3" loop></audio>
+    <audio id="wedding-music" src="music/background-song.mp3" loop></audio>
 
-    <section id="cover" class="sectionCover" style="background-image: url('assets/1M0A0079.jpg');">
+    <section class="section bg-white reveal">
         <div class="content">
-            <h1>Tạ Quyên <span class="heart">&hearts;</span> Hồng Quân</h1>
-            <p>Trân trọng kính mời bạn đến chung vui!</p>
-            <div id="countdown">
-                <h2>Ngày Chung Đôi</h2>
-                <div class="timer">
-                    <div class="time-box"><span id="days">00</span> Ngày</div>
-                    <div class="time-box"><span id="hours">00</span> Giờ</div>
-                    <div class="time-box"><span id="minutes">00</span> Phút</div>
-                    <div class="time-box"><span id="seconds">00</span> Giây</div>
+            <h1 class="script-font save-the-date">Save the Date</h1>
+            <div class="main-photo-frame">
+                <img src="images/main-photo.jpg" alt="Cô dâu chú rể">
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-white reveal">
+        <div class="content intro-section">
+            <div class="intro-left">
+                <p class="script-font it-was-you">It was always you</p>
+                <img src="images/bride.jpg" alt="Cô dâu" class="intro-bride-photo">
+            </div>
+            <div class="intro-right">
+                <img src="images/story-1.jpg" alt="Câu chuyện 1">
+                <img src="images/story-2.jpg" alt="Câu chuyện 2">
+                <h3>SHE</h3>
+                <p>I knew from the start that I loved her, and knew, as well, that I would never fall back from that love.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-white reveal">
+        <div class="content text-center">
+            <p class="invitation-text">WEDDING INVITATION</p>
+            <h1 class="script-font couple-name">
+                Hồng Quân
+                <span>&</span>
+                Tạ Quyên
+            </h1>
+            
+            <div class="parents-info">
+                <div>
+                    <p><strong>NHÀ TRAI</strong></p>
+                    <p>Ông: Nguyễn Mạnh Hoàng</p>
+                    <p>Bà: Nguyễn Thị Nga</p>
+                </div>
+                <div>
+                    <p><strong>NHÀ GÁI</strong></p>
+                    <p>Ông: Tạ Văn Dần</p>
+                    <p>Bà: Phạm Thị Lụa</p>
+                </div>
+            </div>
+
+            <h2 class="reception-title">Tiệc Mừng Thành Hôn</h2>
+            <div class="main-date">
+                <span>Tháng 12</span>
+                <span class="day">27</span>
+                <span>Năm 2025</span>
+            </div>
+            <p class="lunar-date">(Tức là ngày 08 tháng 11 âm lịch)</p>
+        </div>
+    </section>
+
+    <section class="section bg-maroon reveal">
+        <div class="content">
+            <div class="calendar-card">
+                <h2>Tháng 12 / 2025</h2>
+                <div class="calendar-grid">
+                    <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+                    <span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span>
+                    <span>8</span><span>9</span><span>10</span><span>11</span><span>12</span><span>13</span><span>14</span>
+                    <span>15</span><span>16</span><span>17</span><span>18</span><span>19</span><span>20</span><span>21</span>
+                    <span>22</span><span>23</span><span>24</span><span>25</span><span>26</span><span class="highlight">27</span><span>28</span>
+                    <span>29</span><span>30</span><span>31</span><span class="other-month">1</span><span class="other-month">2</span><span class="other-month">3</span><span class="other-month">4</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="story" class="section">
+    <section class="section bg-maroon reveal">
         <div class="content">
-            <h2>Câu Chuyện Tình Yêu</h2>
+            <div class="event-card">
+                <h3>TIỆC CƯỚI NHÀ GÁI</h3>
+                <div class="event-info">
+                    <i class="fas fa-clock"></i>
+                    <p><strong>Thời gian</strong><br>16:00 Thứ Bảy, 20/12/2025</p>
+                </div>
+                <div class="event-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p><strong>Địa điểm</strong><br>Tư Gia Nhà Gái</p>
+                </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3744.9090992335164!2d105.97300780458185!3d20.179509962974006!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x313671cdb3c1274f%3A0x8b59fed1d9340190!2sNha%20Chi%20Huong!5e0!3m2!1sen!2s!4v1761402299571!5m2!1sen!2s" width="100%" height="300" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-maroon reveal">
+        <div class="content">
+            <div class="event-card">
+                <h3>TIỆC CƯỚI NHÀ TRAI</h3>
+                <div class="event-info">
+                    <i class="fas fa-clock"></i>
+                    <p><strong>Thời gian</strong><br>10:00 Chủ Nhật, 27/12/2025</p>
+                </div>
+                <div class="event-info">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <p><strong>Địa điểm</strong><br>[Địa chỉ nhà hàng tiệc nhà trai]</p>
+                </div>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3724.676657159265!2d105.8409549153317!3d21.00557089396304!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3135ac76ccab6dd7%3A0x55e92a5b07a97d03!2zS-G7jSBUw7pjIHjDoCBEdXkgVMOibg!5e0!3m2!1svi!2s!4v1667888999999!5m2!1svi!2s" width="100%" height="300" style="border:0; border-radius: 8px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-white reveal">
+        <div class="content">
+            <img src="images/bride.jpg" alt="Ảnh cô dâu chú rể" id="bride-groom-image">
+            <div class="tabs">
+                <button class="tab-btn active" data-target="bride">CÔ DÂU</button>
+                <button class="tab-btn" data-target="groom">CHÚ RỂ</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-maroon reveal">
+        <div class="content">
+            <h2 class="timeline-title">Timeline Sự Kiện</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-icon">❤️</div>
+                    <div class="timeline-icon"><i class="fas fa-church"></i></div>
                     <div class="timeline-content">
-                        <h3>2020 - Lần Đầu Gặp Gỡ</h3>
-                        <p>Chúng mình gặp nhau tại một quán cà phê chiều mưa. Định mệnh đã bắt đầu từ ánh nhìn đầu tiên
-                            ấy.</p>
-                        <img src="assets/story-1.jpg" alt="Câu chuyện 1">
+                        <h3>09:00</h3>
+                        <p>Đón khách</p>
                     </div>
                 </div>
-
                 <div class="timeline-item">
-                    <div class="timeline-icon">💍</div>
+                    <div class="timeline-icon"><i class="fas fa-ring"></i></div>
                     <div class="timeline-content">
-                        <h3>2024 - Lời Cầu Hôn</h3>
-                        <p>Dưới bầu trời đầy sao, anh ấy đã quỳ xuống và... mình đã nói "Em đồng ý!".</p>
-                        <img src="assets/story-2.jpg" alt="Câu chuyện 2">
+                        <h3>09:30</h3>
+                        <p>Lễ Thành Hôn</p>
                     </div>
                 </div>
-
                 <div class="timeline-item">
-                    <div class="timeline-icon">🎉</div>
+                    <div class="timeline-icon"><i class="fas fa-glass-cheers"></i></div>
                     <div class="timeline-content">
-                        <h3>2025 - Ngày Cưới</h3>
-                        <p>Một hành trình mới mở ra. Cảm ơn bạn đã ở đây để chứng kiến và chúc phúc cho chúng mình.</p>
+                        <h3>10:00</h3>
+                        <p>Khai tiệc</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-icon"><i class="fas fa-camera"></i></div>
+                    <div class="timeline-content">
+                        <h3>11:30</h3>
+                        <p>Chụp ảnh cùng Cô Dâu & Chú Rể</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <section id="event" class="section">
+    <section class="section bg-maroon reveal">
         <div class="content">
-            <h2>Thông Tin Lễ Cưới</h2>
-            <div class="event-details">
-                <div class="event-box">
-                    <h3>Lễ Vu Quy (Nhà Gái)</h3>
-                    <p><strong>Giờ:</strong> 09:00 - Thứ Bảy, 15.11.2025</p>
-                    <p><strong>Địa điểm:</strong> [Địa chỉ nhà gái]</p>
-                    <a href="[Link Google Maps nhà gái]" target="_blank" class="map-button">Xem Bản Đồ</a>
-                </div>
-
-                <div class="event-box">
-                    <h3>Tiệc Cưới (Nhà Hàng)</h3>
-                    <p><strong>Giờ:</strong> 18:00 - Thứ Bảy, 15.11.2025</p>
-                    <p><strong>Địa điểm:</strong> [Tên nhà hàng], [Địa chỉ nhà hàng]</p>
-                    <a href="[Link Google Maps nhà hàng]" target="_blank" class="map-button">Xem Bản Đồ</a>
-                </div>
-            </div>
-
-            <p class="dresscode"><strong>Dresscode:</strong> Trắng, Be, Xanh Pastel</p>
-        </div>
-    </section>
-
-    <section id="album" class="section">
-        <div class="content">
-            <h2>Album Kỷ Niệm</h2>
-            <div class="gallery">
-                <img src="assets/1M0A0200.jpg" alt="Ảnh 1">
-                <img src="assets/1M0A0250.jpg" alt="Ảnh 2">
-                <img src="assets/1M0A0300.jpg" alt="Ảnh 3">
-                <img src="assets/1M0A0350.jpg" alt="Ảnh 4">
-                <img src="assets/1M0A0400.jpg" alt="Ảnh 5">
-                <img src="assets/1M0A0450.jpg" alt="Ảnh 6">
+            <div id="countdown" class="countdown-timer">
+                <div class="time-box"><span id="days">00</span> Ngày</div>
+                <div class="time-box"><span id="hours">00</span> Giờ</div>
+                <div class="time-box"><span id="minutes">00</span> Phút</div>
+                <div class="time-box"><span id="seconds">00</span> Giây</div>
             </div>
         </div>
     </section>
 
-    <section id="guestbook" class="section">
+    <section class="section bg-maroon reveal">
         <div class="content">
-            <h2>Gửi Lời Chúc</h2>
-            <form id="guestbook-form">
-                <input type="text" id="guest-name" placeholder="Tên của bạn" required>
-                <textarea id="guest-message" placeholder="Lời chúc của bạn..." rows="4" required></textarea>
-                <button type="submit">Gửi Lời Chúc</button>
+            <div class="qr-card">
+                <h2>Hộp Mừng Cưới</h2>
+                <div class="qr-codes">
+                    <div>
+                        <img src="images/qr-groom.png" alt="QR Nhà Trai">
+                        <p>Mừng Chú Rể<br>NGUYEN HONG QUAN</p>
+                    </div>
+                    <div>
+                        <img src="images/qr-bride.png" alt="QR Nhà Gái">
+                        <p>Mừng Cô Dâu<br>TA THI QUYEN</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-white reveal">
+        <div class="content">
+            <div class="video-container">
+               <iframe width="100%" height="315" src="https://www.youtube.com/embed/OApCDEBqGNg?si=M9fglCODHYon56lG" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+    </section>
+
+    <section class="section bg-white reveal">
+        <div class="content">
+            <h2 class="section-title">Album Ảnh Cưới</h2>
+            <div class="album-grid">
+                <img src="images/album-1.jpg" alt="Album 1" class="span-row-2">
+                <img src="images/album-2.jpg" alt="Album 2">
+                <img src="images/album-3.jpg" alt="Album 3">
+                <img src="images/album-4.jpg" alt="Album 4" class="span-row-2">
+                <img src="images/album-5.jpg" alt="Album 5">
+                <img src="images/album-6.jpg" alt="Album 6">
+            </div>
+        </div>
+    </section>
+
+    <section class="section bg-white reveal">
+        <div class="content text-center">
+            <h2 class="section-title">Love Story</h2>
+            <img src="images/love-story.jpg" alt="Love Story" class="love-story-img">
+            <p class="love-story-text">
+                Tình yêu của chúng mình kéo dài 6 năm - có giận hờn, có niềm vui, có cả những lúc tưởng chừng không hiểu nhau. Nhưng may ở chỗ là chưa lần nào chia tay cả...
+                Cảm ơn mọi người đã yêu thương và dành thời gian đến tận đây. Cảm ơn vì đã gửi lời chúc và tình cảm đến vợ chồng mình.
+                Yêu mọi người lắm luôn! ❤️
+            </p>
+        </div>
+    </section>
+
+    <section class="section bg-maroon reveal">
+        <div class="content">
+            <h2 class="rsvp-title">Xác Nhận Tham Gia</h2>
+            <form id="rsvp-form">
+                <input type="text" placeholder="Tên của bạn" required>
+                <textarea rows="4" placeholder="Gửi lời nhắn cho cô dâu chú rể"></textarea>
+                <select required>
+                    <option value="" disabled selected>Bạn tham gia được không?</option>
+                    <option value="yes">Mình chắc chắn tham gia</option>
+                    <option value="no">Mình tiếc quá, không tham gia được</option>
+                </select>
+                <button type="submit" class="btn-submit">Gửi Ngay</button>
             </form>
-
-            <div class="wishes-list">
-                <h3>Các lời chúc đã gửi:</h3>
-                <div class="wish-item">
-                    <strong>Bạn Bè:</strong>
-                    <p>Chúc hai bạn trăm năm hạnh phúc, sớm có quý tử nhé!</p>
-                </div>
-
-                <div class="wish-item">
-                    <strong>Đồng Nghiệp:</strong>
-                    <p>Chúc mừng hạnh phúc Minh Khải và Phương Anh. Mãi mặn nồng nhé!</p>
-                </div>
-            </div>
+            <p class="final-text">Rất hị vọng cậu sẽ có mặt<br>trong ngày trọng đại này của tớ nha</p>
+            <p class="script-font thank-you">Thank You</p>
         </div>
     </section>
 
-    <footer>
-        <p>Cảm ơn bạn đã đến chung vui!</p>
-        <p>&copy; 2025 [Tên Cô Dâu] &amp; [Tên Chú Rể]</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
-
 </html>
