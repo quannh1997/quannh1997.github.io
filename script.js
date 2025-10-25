@@ -1,15 +1,30 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- 1. ĐỒNG HỒ ĐẾM NGƯỢC ---
+    // --- 1. HIỆU ỨNG TRÁI TIM BAY ---
+    const heartsContainer = document.querySelector('.hearts-container');
+    if (heartsContainer) {
+        for (let i = 0; i < 20; i++) { // Tạo 20 trái tim
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            heart.innerText = '❤️';
+            
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${Math.random() * 10}s`;
+            heart.style.fontSize = `${Math.random() * 0.5 + 0.5}rem`; // Kích thước ngẫu nhiên
+            heart.style.animationDuration = `${Math.random() * 5 + 5}s`; // Tốc độ ngẫu nhiên
+            
+            heartsContainer.appendChild(heart);
+        }
+    }
+
+    // --- 2. ĐỒNG HỒ ĐẾM NGƯỢC ---
     // !!! THAY ĐỔI NGÀY CƯỚI CỦA BẠN TẠI ĐÂY !!!
-    const weddingDate = new Date("Dec 21, 2025 11:00:00").getTime(); 
-    
+    const weddingDate = new Date("Dec 25, 2025 18:00:00").getTime();
 
     const countdownFunction = setInterval(() => {
         const now = new Date().getTime();
         const distance = weddingDate - now;
 
-        // Tính toán
         const days = Math.floor(distance / (1000 * 60 * 60 * 24));
         const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
         const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
@@ -21,67 +36,89 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
         document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
 
-        // Khi hết giờ
         if (distance < 0) {
             clearInterval(countdownFunction);
             document.getElementById("countdown").innerHTML = "<h2>Chúc Mừng Hạnh Phúc!</h2>";
         }
     }, 1000);
 
-    // --- 2. BẬT/TẮT NHẠC ---
+    // --- 3. BẬT/TẮT NHẠC ---
     const music = document.getElementById("wedding-music");
     const musicToggle = document.getElementById("music-toggle");
     let isPlaying = false;
-    
-    // Tự động bật nhạc khi người dùng tương tác lần đầu
-    document.body.addEventListener('click', playMusicOnce, { once: true });
-    document.body.addEventListener('scroll', playMusicOnce, { once: true });
 
-    function playMusicOnce() {
-        if (!isPlaying) {
-            music.play();
-            isPlaying = true;
-            musicToggle.innerText = "🔇";
-        }
+    if (music && musicToggle) {
+        const playMusicOnce = () => {
+            if (!isPlaying) {
+                music.play().catch(error => console.log("Lỗi tự động phát nhạc:", error));
+                isPlaying = true;
+                musicToggle.innerText = "🔇";
+            }
+        };
+        // Tự động bật nhạc khi người dùng tương tác
+        document.body.addEventListener('click', playMusicOnce, { once: true });
+        document.body.addEventListener('scroll', playMusicOnce, { once: true });
+
+        musicToggle.addEventListener('click', () => {
+            if (isPlaying) {
+                music.pause();
+                musicToggle.innerText = "🎵";
+            } else {
+                music.play();
+                musicToggle.innerText = "🔇";
+            }
+            isPlaying = !isPlaying;
+        });
     }
 
-    musicToggle.addEventListener('click', () => {
-        if (isPlaying) {
-            music.pause();
-            musicToggle.innerText = "🎵";
-        } else {
-            music.play();
-            musicToggle.innerText = "🔇";
-        }
-        isPlaying = !isPlaying;
+    // --- 4. HIỆU ỨNG FADE IN KHI CUỘN ---
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('active');
+                revealObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    // --- 5. TABS CÔ DÂU / CHÚ RỂ ---
+    const tabButtons = document.querySelectorAll('.tab-btn');
+    const brideGroomImage = document.getElementById('bride-groom-image');
+    
+    // Đặt sẵn đường dẫn ảnh (bạn phải thay cho đúng)
+    const images = {
+        bride: 'images/bride.jpg',
+        groom: 'images/groom.jpg'
+    };
+
+    tabButtons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Xóa active của tất cả
+            tabButtons.forEach(btn => btn.classList.remove('active'));
+            // Thêm active cho nút được click
+            button.classList.add('active');
+            
+            // Đổi ảnh
+            const targetImage = button.getAttribute('data-target'); // 'bride' or 'groom'
+            if (brideGroomImage && images[targetImage]) {
+                brideGroomImage.src = images[targetImage];
+            }
+        });
     });
 
-    // --- 3. GỬI LỜI CHÚC (Guestbook) ---
-    const guestbookForm = document.getElementById("guestbook-form");
-    guestbookForm.addEventListener('submit', (e) => {
-        e.preventDefault(); // Ngăn form gửi đi thật
-        
-        const name = document.getElementById("guest-name").value;
-        const message = document.getElementById("guest-message").value;
-
-        // **LƯU Ý QUAN TRỌNG:**
-        // Việc lưu lời chúc vĩnh viễn cần có Máy chủ (Backend) hoặc dịch vụ bên thứ 3 (như Google Sheets, Firebase, Formspree...).
-        // Code bên dưới chỉ là MÔ PHỎNG: nó thêm lời chúc vào trang nhưng sẽ MẤT khi tải lại.
-
-        // Mô phỏng việc thêm lời chúc vào danh sách
-        const wishesList = document.querySelector(".wishes-list");
-        const newWish = document.createElement("div");
-        newWish.className = "wish-item";
-        newWish.innerHTML = `<strong>${name}:</strong><p>${message}</p>`;
-        
-        // Thêm lời chúc mới lên đầu
-        wishesList.insertBefore(newWish, wishesList.children[1]); 
-
-        // Xóa nội dung trong form
-        guestbookForm.reset();
-
-        // Thông báo (bạn có thể dùng alert hoặc một pop-up đẹp hơn)
-        alert("Cảm ơn bạn đã gửi lời chúc!");
-    });
+    // --- 6. XỬ LÝ FORM RSVP ---
+    const rsvpForm = document.getElementById('rsvp-form');
+    if (rsvpForm) {
+        rsvpForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Tương tự mẫu trước, việc gửi form cần backend.
+            // Chúng ta chỉ mô phỏng là đã gửi thành công.
+            alert("Cảm ơn bạn đã xác nhận!");
+            rsvpForm.reset();
+        });
+    }
 
 });
