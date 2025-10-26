@@ -1,5 +1,5 @@
 var plugins = [{
-      plugin: require('C:/Users/Windows/Documents/GitHub/wedding_page/node_modules/gatsby-plugin-react-helmet/gatsby-ssr'),
+      plugin: require('C:/Users/Windows/Documents/GitHub/quannh1997.github.io/node_modules/gatsby-plugin-react-helmet/gatsby-ssr'),
       options: {"plugins":[]},
     }]
 // During bootstrap, we write requires at top of this file which looks like:

@@ -1,1 +1,46 @@
-node_modules
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / package manager
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build / cache / bundlers
+dist/
+build/
+public/
+.cache/
+.parcel-cache/
+.next/
+out/
+
+# IDEs / editors
+.vscode/
+.idea/
+*.suo
+*.user
+*.sln.docstates
+
+# Logs and temp
+*.log
+*.tmp
+*.bak
+*~
+*.swp
+*.orig
+*.rej
+
+# Python
+__pycache__/
+*.py[cod]
+
+# Coverage
+coverage/
+
+# Misc
+*.psd
+*.tmp.*
+# keep assets/ and music/ tracked unless you want them ignored explicitly
