@@ -90,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Đặt sẵn đường dẫn ảnh (bạn phải thay cho đúng)
     const images = {
-        bride: 'images/bride.jpg',
-        groom: 'images/groom.jpg'
+        bride: 'assets/bride-heart.jpg',
+        groom: 'assets/groom1.jpg'
     };
 
     tabButtons.forEach(button => {
