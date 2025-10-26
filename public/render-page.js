@@ -42076,7 +42076,7 @@ function WelcomeSection({
   }, "The Wedding of"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("h1", {
     className: "title"
   }, "Dinda & Indra"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("div", {
-    className: isAnonymGuest ? 'margin__bottom' : ''
+    className: "margin__bottom"
   }, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(_CountContainer__WEBPACK_IMPORTED_MODULE_4__["default"], null)), renderGuestSection(), isInvitation && Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("div", {
     className: "row",
     css: _styles__WEBPACK_IMPORTED_MODULE_6__["styButtonWrapper"]
