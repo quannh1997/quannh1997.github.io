@@ -1,6 +1,6 @@
 /* --- BIẾN TOÀN CỤC (Global Variables) --- */
 :root {
-    --maroon-red: #8d2027; /* Màu đỏ mận chủ đạo */
+    --maroon-red: #c7e3ff; /* Màu đỏ mận chủ đạo */
     --text-dark: #333;
     --text-light: #ffffff;
     --bg-white: #ffffff;
@@ -19,15 +19,158 @@ body {
     line-height: 1.6;
     background-color: var(--bg-white);
     /* Giới hạn chiều rộng trên máy tính */
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     box-shadow: 0 0 20px rgba(0,0,0,0.1);
+}
+
+.wedding-header {
+    width: 100%;
+    max-width: 100%; /* Giới hạn chiều rộng trên màn hình lớn */
+    margin: 0 auto;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+}
+
+/* --- 1. Khối 3 ảnh ghép --- */
+.image-collage {
+    display: flex; /* Xếp 3 ảnh nằm ngang */
+    width: 100%;
+    height: 60vh; /* Cao bằng 60% chiều cao màn hình */
+    position: relative; /* Quan trọng để lớp phủ hoạt động */
+    overflow: hidden; /* Ẩn các phần thừa */
+    border-radius: 0%;
+}
+
+.collage-item {
+    flex: 1; /* Chia đều 3 ảnh */
+    height: 100%;
+    position: relative;
+}
+
+.collage-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Đảm bảo ảnh lấp đầy khung */
+    transition: transform 0.3s ease;
+}
+
+.collage-item:hover img {
+    transform: scale(1.05); /* Hiệu ứng zoom nhẹ khi rê chuột */
+}
+
+/* --- Lớp phủ ngày tháng (27 12 25) --- */
+.date-overlay {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items:end;
+    justify-content: space-between;
+    pointer-events: none; /* Cho phép click xuyên qua lớp này */
+}
+
+.date-number {
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.7); /* Màu trắng trong suốt 70% */
+    font-size: 20vw; /* Kích thước chữ theo chiều rộng màn hình */
+    line-height: 1;
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Căn chỉnh vị trí từng số (tương đối) */
+.date-27 {
+    padding-left: 5%;
+}
+.date-12 {
+    /* Số 12 nằm chính giữa và to hơn */
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 25vw; /* To hơn */
+    color: rgba(255, 255, 255, 0.8);
+}
+.date-25 {
+    padding-right: 5%;
+}
+
+
+/* --- 2. Khối thông tin bên dưới --- */
+.info-banner {
+    background-color: #C2DFFF; /* Màu kem */
+    padding: 30px 20px;
+    text-align: center;
+    position: relative; /* Quan trọng để chứa các icon */
+    border-top: 1px solid #e0e0e0;
+}
+
+.welcome-text h2 {
+    font-size: 3rem;
+    font-weight: 500;
+    color: #333;
+    letter-spacing: 3px;
+    margin: 0;
+}
+
+/* Đường kẻ */
+.divider {
+    width: 600px;
+    height: 1px;
+    background-color: #555;
+    margin: 15px auto;
+    position: relative;
+}
+
+/* Trái tim ở giữa đường kẻ 
+.divider::before {
+    content: '♥';
+    font-size: 10px;
+    color: #333;
+    position: absolute;
+    left: 50%;
+    top: -6px;
+    transform: translateX(-50%);
+    background-color: #c2dfff;
+    padding: 0 10px;
+}
+*/
+
+
+/* Các icon trang trí */
+.decor-icon {
+    position: absolute;
+    bottom: 25px;
+    width: 80px;
+    opacity: 0.7;
+}
+.rings-icon {
+    left: 30px;
+}
+.bouquet-icon {
+    right: 30px;
+}
+
+/* CSS MỚI CHO VIDEO NỀN */
+#bg-video {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    /* Đây là thuộc tính "thần kỳ" tương tự "background-size: cover" */
+    object-fit: cover;
 }
 
 .section {
     padding: 40px 20px;
     position: relative;
     overflow: hidden;
+    max-width: 100%;
+    align-content: center;
 }
 
 .bg-white { background-color: var(--bg-white); }
@@ -35,15 +178,10 @@ body {
 
 .content {
     max-width: 100%;
+    
     margin: 0 auto;
     position: relative;
     z-index: 2;
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
 }
 
 .text-center { text-align: center; }
@@ -76,7 +214,7 @@ img {
     height: 100%;
     pointer-events: none;
     z-index: 1000;
-    max-width: 600px; /* Đồng bộ với body */
+    max-width: 100%; /* Đồng bộ với body */
     margin: 0 auto;
 }
 .heart {
@@ -201,11 +339,14 @@ img {
 
 /* --- 4. Lịch --- */
 .calendar-card {
+    
     background: var(--bg-white);
     color: var(--text-dark);
     padding: 20px;
+    max-width: 500px;
     border-radius: 12px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    justify-content: center;
 }
 .calendar-card h2 { text-align: center; margin-top: 0; }
 .calendar-grid {
@@ -267,7 +408,7 @@ img {
     width: 100%;
     height: 500px; /* Chiều cao cố định */
     object-fit: cover; /* Cắt ảnh vừa khung */
-    margin-bottom: 15px;
+    margin-top:0%;
 }
 .tabs {
     display: flex;
@@ -340,8 +481,10 @@ img {
 
 /* --- 9. Đồng hồ đếm ngược --- */
 .countdown-timer {
-    display: flex;
+    display:flex;
     justify-content: space-around;
+    justify-content: center;  /* Căn giữa toàn bộ 4 box */
+    gap: 15px;                /* Đặt khoảng cách chính xác là 15px */
     text-align: center;
 }
 .time-box {
@@ -490,4 +633,73 @@ img {
     font-size: 3rem;
     color: var(--text-light);
     margin: 10px 0 0 0;
+}
+
+/* So le vị trí tên cô dâu chú rể */
+@media (min-width: 768px) {
+  .groom-name {
+    text-align: left;
+    margin-left: 30%;
+    animation: fadeInLeft 1.2s ease both;
+  }
+  .bride-name {
+    text-align: right;
+    margin-right: 30%;
+    animation: fadeInRight 1.2s ease both;
+  }
+}
+
+/* Nổi bật tên cô dâu chú rể */
+.couple-name {
+    font-size: 3.5rem;
+    color: #2a2a72 !important;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.15);
+    transition: all 0.8s ease;
+}
+
+/* === FINAL CUSTOM UPDATES (by ChatGPT) === */
+
+/* 1. Bỏ nền trắng cho phần Wedding Invitation */
+.section.invite-section .content {
+    background: none !important;
+    box-shadow: none !important;
+    padding: 0 !important;
+}
+
+/* 2. Thêm trái tim giữa tên cô dâu chú rể */
+.heart-divider {
+    font-size: 2rem;
+    color: #ff4d6d;
+    text-align: center;
+    margin: 10px auto;
+    animation: pulse 2s infinite;
+}
+@keyframes pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.3); opacity: 1; }
+}
+
+/* 3. Hai card tiệc cưới song song */
+.event-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+@media (min-width: 1024px) {
+    .event-flex {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .event-card {
+        width: 48%;
+    }
+}
+
+/* 4. Fix ảnh phần Love Story không bị tràn */
+.intro-right img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+    display: block;
 }
