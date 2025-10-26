@@ -41077,7 +41077,7 @@ const META_DESCRIPTION = `Dengan memohon Rahmat dan Ridho Illahi, teriring niat 
 function MainLayout({
   children
 }) {
-  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(react_helmet__WEBPACK_IMPORTED_MODULE_1__["Helmet"], null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("title", null, "Dinda \u2764\uFE0F Indra Wedding"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("link", {
+  return Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(react__WEBPACK_IMPORTED_MODULE_0__["Fragment"], null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])(react_helmet__WEBPACK_IMPORTED_MODULE_1__["Helmet"], null, Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("title", null, "Qu\xE2n \u2764\uFE0F Quy\xEAn Wedding"), Object(_emotion_core__WEBPACK_IMPORTED_MODULE_7__["jsx"])("link", {
     rel: "icon",
     type: "image/png",
     href: _assets_images_dinda_indra_png__WEBPACK_IMPORTED_MODULE_3___default.a
