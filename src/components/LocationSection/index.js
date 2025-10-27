@@ -9,11 +9,11 @@ function LocationSection() {
         <div className="container">
           <div className="row">
             <div className="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-              <h2 className="main-font">Lokasi Acara</h2>
+              <h2 className="main-font">Địa Điểm Sự Kiện</h2>
               <p className="sub-title">
                 <a
                   href={GOOGLE_MAPS_LINK}
-                  title="Click untuk melihat peta di Google Maps"
+                  title="Nhấp để xem bản đồ trên Google Maps"
                   target="_blank"
                   rel="noreferrer"
                   style={{ color: '#828282' }}

@@ -41,6 +41,9 @@ function useDateCountdown() {
   }, [currentEpochTime]);
 
   useEffect(() => {
+    // Calculate immediately on mount
+    calculateTimeLeft();
+
     const interval = setInterval(() => {
       /**
        * If time has run out then stop the interval!

@@ -1,6 +1,14 @@
 import { css, keyframes } from '@emotion/core';
 import Background from '@assets/images/bg-welcome.jpg';
 
+// Update font imports using emotion's css helper
+const globalStyles = css`
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap');
+`;
+
+// Add globalStyles to your exports
+export { globalStyles };
+
 export const styHero = css`
   width: 100%;
   height: 100vh;
@@ -102,7 +110,7 @@ export const styScrollWrapper = css`
       }
     }
 
-    &button:hover {
+    .button:hover {
       opacity: 0.5;
     }
 
@@ -187,17 +195,32 @@ export const styWrapper = css`
     margin-top: -12px;
   }
 
+  .title {
+    font-family: 'Dancing Script', 'Cookie', cursive;
+    font-size: 4em;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .sub-title {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.2em;
+    font-weight: 500;
+    color: #fff;
+  }
+
   .to-dearest {
-    font-size: 16px;
-    color: #f1f1f1b3;
-    margin-bottom: 8px;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 1.6em;
+    font-weight: 400;
+    color: #fff;
   }
 
   .to-dearest-name {
-    border-bottom: 1px solid;
-    padding-bottom: 12px;
-    max-width: 250px;
-    margin: auto auto 30px auto;
+    font-family: 'Dancing Script', 'Cookie', cursive;
+    font-size: 2.8em;
+    font-weight: 700;
+    color: #fff;
   }
 
   .margin__bottom {

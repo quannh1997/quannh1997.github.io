@@ -10,15 +10,15 @@ function FooterSection({ isInvitation }) {
           <div className="container">
             <div className="row">
               <div className="col-md-8 col-md-offset-2 text-center fh5co-heading">
-                <h2 className="main-font">Terima Kasih</h2>
+                <h2 className="main-font">Cảm Ơn</h2>
                 <p className="info">
-                  Berdasarkan kondisi saat ini, tanpa mengurangi rasa hormat, diharapkan tetap bisa menjalin silaturahmi
-                  melalui media online, bukan dengan kontak fisik secara langsung. <br />
-                  Mohon pengertiannya.
+                  Dựa trên tình hình hiện tại, không giảm đi sự tôn trọng, hy vọng vẫn có thể duy trì mối quan hệ
+                  thông qua phương tiện trực tuyến, thay vì tiếp xúc trực tiếp. <br />
+                  Mong quý vị thông cảm.
                 </p>
                 <p className="info">
-                  Atas segala do'a dan restu saudara/i,
-                  <br /> kami ucapkan terima kasih. <br />
+                  Chúng tôi xin chân thành cảm ơn tất cả lời cầu nguyện và chúc phúc của quý vị.
+                  <br /> <br />
                   Wassalamualaikum warahmatullahi wabarakatuh.
                 </p>
               </div>

@@ -5,12 +5,17 @@ import { bool, func } from 'prop-types';
 
 function ClickToSeeDetail({ loading, onClick }) {
   return (
-    <div css={styScrollWrapper} onClick={onClick}>
-      <section id="scroll" class="scroll__icon">
-        <div className="button">
-          <span></span>
-        </div>
-        <span className="text">{loading ? 'Menyiapkan data..' : 'Klik untuk Melihat Detail Acara'}</span>
+    <div css={styScrollWrapper}>
+      <section id="scroll" className="scroll__icon">
+        <button
+          type="button"
+          className="button"
+          aria-label={loading ? 'Đang chuẩn bị' : 'Còn nữa ở dưới :)'}
+          onClick={onClick}
+        >
+          <span />
+        </button>
+        <span className="text">{loading ? 'Đang chuẩn bị' : 'Còn nữa ở dưới :)'}</span>
       </section>
     </div>
   );

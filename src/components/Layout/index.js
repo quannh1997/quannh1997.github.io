@@ -8,7 +8,7 @@ import '@assets/css/bootstrap.css';
 import '@assets/css/style.css';
 
 const IMAGE_URL = `https://thekusuma.com/static/slide-6-4715e29302dbaa2ba21494c6258298d4.jpg`;
-const META_DESCRIPTION = `Dengan memohon Rahmat dan Ridho Illahi, teriring niat menjalankan Sunnah Rasulullah ﷺ untuk membentuk rumah tangga yang Sakinah, Mawaddah wa Rahmah, kami mohon do'a agar senantiasa diberikan kelancaran dan keberkahan. - Dinda & Indra`;
+const META_DESCRIPTION = `Với lòng cầu nguyện Ân Phước và Sự Chấp Thuận của Allah, cùng ý định thực hành Sunnah của Rasulullah ﷺ để xây dựng gia đình Sakinah, Mawaddah wa Rahmah, chúng tôi kính mong các bạn cầu nguyện cho chúng tôi luôn được thuận lợi và hạnh phúc. - Dinda & Indra`;
 
 function MainLayout({ children }) {
   return (

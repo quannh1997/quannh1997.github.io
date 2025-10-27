@@ -19,17 +19,19 @@
     "@emotion/react": "^11.14.0",
     "@loadable/component": "^5.12.0",
     "add": "^2.0.6",
-    "gatsby": "^2.32.13",
-    "gatsby-plugin-emotion": "^4.5.0",
+    "gatsby": "^5.15.0",
+    "gatsby-plugin-emotion": "^8.15.0",
     "gatsby-plugin-eslint": "^4.0.4",
-    "gatsby-plugin-react-helmet": "^3.10.0",
+    "gatsby-plugin-google-fonts": "^1.0.1",
+    "gatsby-plugin-react-helmet": "^6.15.0",
     "prop-types": "^15.7.2",
-    "react": "^16.12.0",
-    "react-dom": "^16.14.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-helmet": "^6.0.0",
     "react-image-gallery": "^1.0.7"
   },
   "devDependencies": {
+    "eslint": "^8.57.1",
     "eslint-config-jquery": "^3.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.20.2",
@@ -37,8 +39,9 @@
     "gatsby-alias-imports": "^1.0.4",
     "gatsby-optional-chaining": "^1.0.1",
     "mini-css-extract-plugin": "^1.6.2",
+    "or": "^0.2.0",
     "prettier": "2.0.5",
-    "webpack": "4.46.0"
+    "webpack": "^5.102.1"
   },
   "repository": {
     "type": "git",

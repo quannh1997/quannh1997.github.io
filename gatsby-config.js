@@ -24,5 +24,15 @@ module.exports = {
         },
       },
     },
+    {
+      resolve: `gatsby-plugin-google-fonts`,
+      options: {
+        fonts: [
+          `montserrat:400,500,600,700`,
+          `dancing script:400,500,700`
+        ],
+        display: 'swap'
+      }
+    }
   ],
 };
