@@ -2,45 +2,65 @@
 .DS_Store
 Thumbs.db
 
-# Node / package manager
+# Node
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# Build / cache / bundlers
+# Gatsby / build artifacts
+.cache/
+public/
 dist/
 build/
-public/
-.cache/
+out/
+.cache.json
+
+# Bundlers / caches
 .parcel-cache/
 .next/
-out/
+.vite/
+.esbuild/
+.pnp/
+.pnp.js
 
-# IDEs / editors
+# Logs / temp
+*.log
+*.tmp
+*.bak
+*~
+*.swp
+*.pid
+
+# Editor / IDE
 .vscode/
 .idea/
 *.suo
 *.user
 *.sln.docstates
 
-# Logs and temp
-*.log
-*.tmp
-*.bak
-*~
-*.swp
-*.orig
-*.rej
+# Environment / secrets
+.env
+.env.*.local
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+secrets.yml
 
-# Python
-__pycache__/
-*.py[cod]
-
-# Coverage
+# Test / coverage
 coverage/
+.nyc_output/
 
-# Misc
+# Misc heavy/design files
 *.psd
-*.tmp.*
-# keep assets/ and music/ tracked unless you want them ignored explicitly
+*.ai
+*.xcf
+
+# OS-specific thumbs / metadata
+ehthumbs.db
+Icon?
+desktop.ini
+
+# Keep lockfiles tracked (recommended) — remove next line if you want to ignore lockfile
+# package-lock.json
