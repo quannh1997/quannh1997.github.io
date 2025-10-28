@@ -1,5 +1,6 @@
 import { css, keyframes } from '@emotion/core';
-import Background from '@assets/images/bg-welcome.jpg';
+import BackgroundDesktop from '@assets/images/bg-welcome1.jpg';
+import BackgroundMobile from '@assets/images/bg-welcome2.jpg';
 
 // Update font imports using emotion's css helper
 const globalStyles = css`
@@ -130,13 +131,24 @@ export const styScrollWrapper = css`
 
 export const styBackground = css`
   background-size: cover;
-  background-image: url(${Background});
+  background-image: url(${BackgroundDesktop});
   background-position: center;
   width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+
+  @media screen and (max-width: 768px) {
+    background-size: cover;
+    background-image: url(${BackgroundMobile});
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 
   @media screen and (max-width: 400px) {
     .title {

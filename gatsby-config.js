@@ -10,6 +10,7 @@ module.exports = {
   plugins: [
     `gatsby-plugin-react-helmet`,
     `gatsby-plugin-emotion`,
+    `gatsby-plugin-image`,
     'gatsby-optional-chaining',
     {
       resolve: 'gatsby-alias-imports',

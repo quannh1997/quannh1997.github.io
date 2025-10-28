@@ -7,6 +7,7 @@ import { Link } from 'gatsby';
 import WeddingImg from '@assets/images/wedding-logo.png';
 import CountContainer from './CountContainer';
 import ScrollToDown from './ScrollToDown';
+import isMobileDevice from '@helpers/isMobileDevice';
 import { globalStyles, styWrapper, styHero, styBackground, styButtonWrapper } from './styles';
 
 const DELAY_TIME = 1500;
@@ -14,6 +15,7 @@ const DELAY_TIME = 1500;
 function WelcomeSection({ location, guestName, isInvitation, isAnonymGuest, codeLink, onClickDetail }) {
   const [loading, setLoading] = useState(false);
   const [alreadyDownloadData, setAlreadyDownloadData] = useState(false);
+  const isMobile = isMobileDevice();
 
   const handleScrollTo = () => {
     /** scroll into detail view */
@@ -87,10 +89,19 @@ function WelcomeSection({ location, guestName, isInvitation, isAnonymGuest, code
         <div className="container">
           <div className="row" css={styWrapper}>
             <div className="col-md-8 col-md-offset-2 text-center">
-              <img src={WeddingImg} alt="wedding-dinda-indra" />
+              <img 
+                src={WeddingImg} 
+                alt="wedding-dinda-indra" 
+                style={{ maxWidth: isMobile ? '50px' : '80px' }}
+              />
               <h4 className="sub-title">The Wedding of</h4>
-              <h1 className="title">Hồng Quân &amp; Tạ Quyên</h1>
-              <div style={{ paddingTop: '30px' }}>
+              <h1 
+                className="title" 
+                style={{ fontSize: isMobile ? '2.8em' : '5.5em' }}
+              >
+                Hồng Quân &amp; Tạ Quyên
+              </h1>
+              <div style={{ paddingTop: '50px' }}>
                 <CountContainer />
               </div>
               {renderGuestSection()}

@@ -1,38 +1,35 @@
 import React, { Fragment } from 'react';
 import { bool } from 'prop-types';
 
-import Bride from '@assets/images/p-dinda-2.jpg';
-import Groom from '@assets/images/p-indra.jpg';
+import quan from '@assets/images/p-quan.jpg';
+import quyen from '@assets/images/p-quyen.jpg';
 
-import { styWrapper } from './styles';
+import { styWrapper, globalStyles } from './styles';
 
 function HelloSection({ isInvitation }) {
-  const finalSubtitle = isInvitation ? '03 Tháng 10 2020, HARRIS Hotel Sentraland, Semarang' : 'Thứ Bảy, 03 Tháng 10 2020';
+  const finalSubtitle = 'Thứ Bảy, 27 Tháng 12 Năm 2025';
 
   return (
     <Fragment>
-      <div id="fh5co-couple" css={styWrapper}>
-        <div className="container">
+      <div id="fh5co-couple" css={[globalStyles, styWrapper]}>
+        <div className="container"> 
           <div className="row">
             <div className="col-md-8 col-md-offset-2 text-center fh5co-heading">
-              <h2 className="main-font">Assalamualaikum Wr. Wb</h2>
+              <h2 className="main-font">Join us!</h2>
               <h3 className="sub-title hs">{finalSubtitle}</h3>
-              <p className="info">
-                Với lòng cầu nguyện Ân Phước và Sự Chấp Thuận của Allah, cùng ý định thực hành Sunnah của Rasulullah ﷺ để xây dựng
-                gia đình Sakinah, Mawaddah wa Rahmah, chúng tôi kính mong các bạn cầu nguyện cho chúng tôi luôn được thuận lợi và
-                hạnh phúc.
+              <p className="p">
+                Sau 6 năm bên nhau, chúng mình đã quyết định về chung một nhà.
               </p>
             </div>
           </div>
           <div className="couple-wrap">
             <div className="couple-half">
               <div className="groom">
-                <img src={Bride} alt="groom" className="img-responsive" loading="lazy" />
+                <img src={quan} alt="groom" className="img-responsive" loading="lazy" />
               </div>
               <div className="desc-groom">
-                <h3 className="main-font">Dinda Saraswati, S.I.Kom.</h3>
+                <h3 className="main-font">Nguyễn Hồng Quân</h3>
                 <p className="parent-name parent-name__top">
-                  Putri Bapak Totok Somo Dipoyono <br />& Ibu Setyo Listiani
                 </p>
               </div>
             </div>
@@ -44,12 +41,12 @@ function HelloSection({ isInvitation }) {
             </div>
             <div className="couple-half">
               <div className="bride">
-                <img src={Groom} alt="groom" className="img-responsive" loading="lazy" />
+                <img src={quyen} alt="groom" className="img-responsive" loading="lazy" />
               </div>
               <div className="desc-bride">
-                <h3 className="main-font">Indra Kusuma, S.Kom.</h3>
+                <h3 className="main-font">Tạ Thị Quyên</h3>
                 <p className="parent-name">
-                  Putra Bapak Bunari <br />& Ibu Suratun
+                  <br /> <br /><br /> <br />
                 </p>
               </div>
             </div>

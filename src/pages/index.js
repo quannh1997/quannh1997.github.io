@@ -17,7 +17,7 @@ import FloatingMusic from '@components/FloatingMusic/Loadable';
 
 function Home({ location }) {
   const guestName = decodeURIComponent(getQueryValue(location, 'to') || '');
-  const isInvitation = getQueryValue(location, 'type') === 'invitation';
+  const isInvitation = true;
   const firstName = guestName.replace(/ .*/, '');
   const isAnonymGuest = guestName === '' && !isInvitation;
 
