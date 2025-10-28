@@ -1,5 +1,5 @@
 function isMobileDevice() {
-  if (typeof window === undefined) return false;
+  if (typeof window === 'undefined') return false;
 
   const userAgent = window.navigator.userAgent || '';
   const finalUserAgent = userAgent.toLocaleLowerCase();
