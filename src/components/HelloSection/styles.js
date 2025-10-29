@@ -8,8 +8,13 @@ export { globalStyles };
 
 export const styWrapper = css`
   .main-font {
-    font-family: 'Great Vibes', cursive;
+    font-family: 'Dancing Script', 'Cookie', cursive;
+    font-size: 3.5em;
     font-weight: 700;
+
+    @media screen and (max-width: 768px) {
+      font-size: 2.5em;
+    }
   }
 
   .main-title {

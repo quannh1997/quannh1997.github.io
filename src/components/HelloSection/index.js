@@ -46,7 +46,7 @@ function HelloSection({ isInvitation }) {
               <div className="desc-bride">
                 <h3 className="main-font">Tạ Thị Quyên</h3>
                 <p className="parent-name">
-                  <br /> <br /><br /> <br />
+                  <br /> <br /><br />
                 </p>
               </div>
             </div>
