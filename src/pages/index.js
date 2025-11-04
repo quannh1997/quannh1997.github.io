@@ -6,8 +6,8 @@ import getQueryValue from '@helpers/getQueryValue';
  */
 import MainLayout from '@components/Layout';
 import WelcomeSection from '@components/WelcomeSection';
-import HelloSection from '@components/HelloSection';
 import WeddingSection from '@components/WeddingSection';
+import RegistSection from '@components/RegistSection';
 import StorySection from '@components/StorySection';
 import PhotoSection from '@components/PhotoSection/Loadable';
 import WishesSection from '@components/WishesSection';
@@ -21,9 +21,14 @@ function Home({ location }) {
   const isAnonymGuest = guestName === '' && !isInvitation;
 
   const [showDetailContent, setShowDetailContent] = useState(false);
+  const [showRegistSection, setShowRegistSection] = useState(false);
 
   const handleClickDetail = () => {
     setShowDetailContent(true);
+  };
+
+  const handleClickRegist = () => {
+    setShowRegistSection(true);
   };
 
   const renderDetailContent = () => {
@@ -31,8 +36,8 @@ function Home({ location }) {
 
     return (
       <Fragment>
-        <HelloSection isInvitation={isInvitation} />
-        <WeddingSection isInvitation={isInvitation} />
+        <WeddingSection isInvitation={isInvitation} onClickRegist={handleClickRegist} />
+        {showRegistSection && <RegistSection />}
         <StorySection />
         <PhotoSection />
         <WishesSection />

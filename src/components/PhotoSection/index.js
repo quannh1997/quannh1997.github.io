@@ -26,7 +26,7 @@ function PhotoSection() {
         <div className="row">
           <div className="row">
             <div className="col-md-8 col-md-offset-2 text-center fh5co-heading">
-              <h2 className="main-font">Album ảnh cưới</h2>
+              <h2 className="main-font__photo">Album ảnh cưới</h2>
             </div>
           </div>
           <div className="row">

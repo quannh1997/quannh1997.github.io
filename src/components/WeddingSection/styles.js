@@ -31,15 +31,26 @@ export const styWrapper = css`
 
   .fh5co-heading {
     margin-bottom: 30px;
+    
+    @media screen and (max-width: 768px) {
+      margin-bottom: 15px;
+    }
   }
 
   .main-font__wedding {
     font-family: 'Dancing Script', 'Cookie', cursive;
     font-size: 4em;
-    font-weight: 700;
+    font-weight: 500;
+    margin-bottom: 0;
     
     @media screen and (max-width: 768px) {
-      font-size: 2.5em;
+      font-size: 1.4em;
+      margin-bottom: 0;
+      line-height: 1.2;
+    }
+    
+    @media screen and (max-width: 400px) {
+      font-size: 1.2em;
     }
   }
 
@@ -73,15 +84,17 @@ export const styWrapper = css`
 
   @media screen and (max-width: 768px) {
     height: 100vh;
-    overflow-y: auto;
-    padding: 30px 0;
+    overflow: hidden;
+    padding: 20px 0;
     
     .container {
-      max-height: none;
+      max-height: 100vh;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
     }
     
     .fh5co-heading {
-      margin-bottom: 20px;
+      margin-bottom: 15px;
     }
   }
 

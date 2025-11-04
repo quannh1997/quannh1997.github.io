@@ -7,28 +7,21 @@ const globalStyles = css`
 export { globalStyles };
 
 export const styWrapper = css`
-  .main-font {
+  background-color: #f5f5f5;
+  width: 100%;
+  min-height: auto;
+  padding: 40px 0;
+  color: #333;
+
+  .main-font__photo {
     font-family: 'Dancing Script', 'Cookie', cursive;
-    font-weight: 400;
-
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 0;
+    color: #333;
+    
     @media screen and (max-width: 768px) {
-      font-size: 3em;
-    }
-
-    @media screen and (max-width: 400px) {
-      font-size: 2.5em;
-    }
-  }
-
-  .sub-title {
-    color: #828282;
-    font-weight: 400;
-    line-height: 1.6;
-    font-size: 16px;
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-
-    @media screen and (max-width: 768px) {
-      font-size: 15px;
+      font-size: 2em;
     }
   }
 `;

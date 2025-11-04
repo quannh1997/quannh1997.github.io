@@ -18,15 +18,15 @@ function WelcomeSection({ location, guestName, isInvitation, isAnonymGuest, code
   const isMobile = isMobileDevice();
 
   const handleScrollTo = () => {
-    /** scroll into detail view */
-    const element = document.getElementById('fh5co-couple');
+    /** scroll into wedding section */
+    const element = document.getElementById('fh5co-event');
     if (element && typeof element.scrollIntoView === 'function') {
       element.scrollIntoView({ behavior: 'smooth', block: 'start', inline: 'nearest' });
     } else {
       // fallback: do nothing but avoid throwing
       // console warn for debugging in dev
       // eslint-disable-next-line no-console
-      console.warn('Element #fh5co-couple not found. Scroll skipped.');
+      console.warn('Element #fh5co-event not found. Scroll skipped.');
     }
   };
 

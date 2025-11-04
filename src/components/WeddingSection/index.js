@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { bool } from 'prop-types';
+import { bool, func } from 'prop-types';
 import isMobileDevice from '@helpers/isMobileDevice';
 
 import WeddingInfoBox from './WeddingInfoBox';
@@ -15,7 +15,7 @@ import {
   BRIDE_MAPS_LINK,
 } from '@/constants';
 
-function WeddingSection({ isInvitation }) {
+function WeddingSection({ isInvitation, onClickRegist }) {
   const isMobile = isMobileDevice();
   return (
     <Fragment>
@@ -24,7 +24,7 @@ function WeddingSection({ isInvitation }) {
         <div className="container">
           <div className="row">
             <div className="col-md-8 col-md-offset-2 text-center fh5co-heading">
-              <h2 className="main-font__wedding">Thời gian địa điểm rõ ràng ♪♪</h2>
+              <h2 className="main-font__wedding">Tham dự với chúng mình nhé!</h2>
             </div>
           </div>
           {!isMobile && (
@@ -44,32 +44,32 @@ function WeddingSection({ isInvitation }) {
           <div className="row">
               <div className="col-md-8 col-md-offset-2">
                 <div className="row">
-                  <div className="col-md-5 col-sm-6 col-xs-12 text-center" style={{ order: 1 }}>
+                  <div className="col-md-5 col-sm-6 col-xs-12 text-center" style={{ order: 1, paddingTop: isMobile ? '5px' : '0' }}>
                     <WeddingInfoBox
-                      title="Nhà Trai"
-                      time="08:00 - 12:00"
-                      date="Thứ Bảy, 27 Tháng 12 Năm 2025"
-                      description={`<strong>${GROOM_LOCATION_NAME}</strong><br/>${GROOM_LOCATION_ADDRESS}`}
+                      title="Nhà Gái"
+                      time="10:00 - 12:00"
+                      date="Thứ Bảy, 21 Tháng 12 Năm 2025"
+                      description={`<strong>${BRIDE_LOCATION_NAME}</strong><br/>${BRIDE_LOCATION_ADDRESS}`}
                     />
                   </div>
                   <div className="col-md-2 hidden-xs hidden-sm"></div>
                   <div className="col-md-5 col-sm-6 col-xs-12 text-center hidden-xs" style={{ order: 3 }}>
                     <WeddingInfoBox
-                      title="Nhà Gái"
-                      time="14:00 - 18:00"
+                      title="Nhà Trai"
+                      time="11:00 - 13:00"
                       date="Thứ Bảy, 27 Tháng 12 Năm 2025"
-                      description={`<strong>${BRIDE_LOCATION_NAME}</strong><br/>${BRIDE_LOCATION_ADDRESS}`}
+                      description={`<strong>${GROOM_LOCATION_NAME}</strong><br/>${GROOM_LOCATION_ADDRESS}`}
                     />
                   </div>
                   <div className="col-md-5 col-sm-6 col-xs-12 text-center hidden-sm hidden-md hidden-lg" style={{ order: 2, marginBottom: '20px' }}>
-                    <MapButton mapLink={GROOM_MAPS_LINK} label="Xem trên bản đồ" />
+                    <MapButton mapLink={BRIDE_MAPS_LINK} label="Xem trên bản đồ" />
                   </div>
-                  <div className="col-md-5 col-sm-6 col-xs-12 text-center hidden-sm hidden-md hidden-lg" style={{ order: 3 }}>
+                  <div className="col-md-5 col-sm-6 col-xs-12 text-center hidden-sm hidden-md hidden-lg" style={{ order: 3, paddingTop: isMobile ? '5px' : '0' }}>
                     <WeddingInfoBox
-                      title="Nhà Gái"
-                      time="14:00 - 18:00"
+                      title="Nhà Trai"
+                      time="11:00 - 13:00"
                       date="Thứ Bảy, 27 Tháng 12 Năm 2025"
-                      description={`<strong>${BRIDE_LOCATION_NAME}</strong><br/>${BRIDE_LOCATION_ADDRESS}`}
+                      description={`<strong>${GROOM_LOCATION_NAME}</strong><br/>${GROOM_LOCATION_ADDRESS}`}
                     />
                   </div>
                 </div>
@@ -81,11 +81,11 @@ function WeddingSection({ isInvitation }) {
               <div className="col-md-8 col-md-offset-2">
                 <div className="row">
                   <div className="col-md-5 col-sm-6 text-center">
-                    <MapButton mapLink={GROOM_MAPS_LINK} label="Xem trên bản đồ" />
+                    <MapButton mapLink={BRIDE_MAPS_LINK} label="Xem trên bản đồ" />
                   </div>
                   <div className="col-md-2 hidden-xs hidden-sm"></div>
                   <div className="col-md-5 col-sm-6 text-center">
-                    <MapButton mapLink={BRIDE_MAPS_LINK} label="Xem trên bản đồ" />
+                    <MapButton mapLink={GROOM_MAPS_LINK} label="Xem trên bản đồ" />
                   </div>
                 </div>
               </div>
@@ -95,8 +95,8 @@ function WeddingSection({ isInvitation }) {
             <div className="row hidden-sm hidden-md hidden-lg">
               <div className="col-md-8 col-md-offset-2">
                 <div className="row">
-                  <div className="col-xs-12 text-center">
-                    <MapButton mapLink={BRIDE_MAPS_LINK} label="Xem trên bản đồ" />
+                  <div className="col-xs-12 text-center" style={{ paddingBottom: '15px' }}>
+                    <MapButton mapLink={GROOM_MAPS_LINK} label="Xem trên bản đồ" />
                   </div>
               </div>
             </div>
@@ -125,7 +125,7 @@ function WeddingSection({ isInvitation }) {
               </div>
             </div>
           )}  
-          <ButtonLive />
+          <ButtonLive onClickRegist={onClickRegist} />
         </div>
       </div>
     </Fragment>
