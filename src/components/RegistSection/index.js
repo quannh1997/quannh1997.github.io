@@ -1,9 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import { globalStyles, styWrapper } from './styles';
-import isMobileDevice from '@helpers/isMobileDevice';
 
-function RegistSection() {
-  const isMobile = isMobileDevice();
+function RegistModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
     event: 'bride', // 'bride' hoặc 'groom'
     name: '',
@@ -55,6 +53,9 @@ function RegistSection() {
         name: '',
         quantity: 1
       });
+      
+      // Đóng modal
+      onClose();
     } catch (error) {
       console.error('❌ Lỗi submit form:', error);
       alert('Có lỗi xảy ra, vui lòng thử lại!');
@@ -71,19 +72,21 @@ function RegistSection() {
     }));
   };
 
+  if (!isOpen) return null;
+
   return (
     <Fragment>
-      <div id="fh5co-regist" css={[styWrapper, globalStyles]}>
-        <div className="overlay" />
-        <div className="container">
+      <div css={[styWrapper, globalStyles]} style={{ position: 'fixed', top: 0, left: 0, right: 0, bottom: 0, zIndex: 999, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <div className="overlay" onClick={onClose} style={{ cursor: 'pointer' }} />
+        <div className="container" style={{ position: 'relative', zIndex: 1000, maxWidth: '500px', margin: '0 auto' }}>
           <div className="row">
-            <div className="col-md-8 col-md-offset-2 text-center fh5co-heading" style={{ marginBottom: '60px' }}>
+            <div className="col-md-12 text-center fh5co-heading" style={{ marginBottom: '30px' }}>
               <h2 className="main-font__regist">Đăng ký tham dự</h2>
             </div>
           </div>
 
           <div className="row">
-            <div className="col-md-6 col-md-offset-3" style={{ marginTop: '40px' }}>
+            <div className="col-md-12">
               <form onSubmit={handleSubmit} className="regist-form">
                 <div className="form-group">
                   <label htmlFor="event">Tham gia</label>
@@ -138,6 +141,16 @@ function RegistSection() {
                     {submitting ? 'Đang xử lý...' : 'Xác nhận tham dự'}
                   </button>
                 </div>
+
+                <div className="form-group text-center">
+                  <button 
+                    type="button" 
+                    className="btn btn-default"
+                    onClick={onClose}
+                  >
+                    Đóng
+                  </button>
+                </div>
               </form>
             </div>
           </div>
@@ -147,4 +160,4 @@ function RegistSection() {
   );
 }
 
-export default React.memo(RegistSection);
+export default React.memo(RegistModal);

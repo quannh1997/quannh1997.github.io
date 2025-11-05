@@ -7,7 +7,7 @@ import getQueryValue from '@helpers/getQueryValue';
 import MainLayout from '@components/Layout';
 import WelcomeSection from '@components/WelcomeSection';
 import WeddingSection from '@components/WeddingSection';
-import RegistSection from '@components/RegistSection';
+import RegistModal from '@components/RegistSection';
 import StorySection from '@components/StorySection';
 import PhotoSection from '@components/PhotoSection/Loadable';
 import WishesSection from '@components/WishesSection';
@@ -21,14 +21,18 @@ function Home({ location }) {
   const isAnonymGuest = guestName === '' && !isInvitation;
 
   const [showDetailContent, setShowDetailContent] = useState(false);
-  const [showRegistSection, setShowRegistSection] = useState(false);
+  const [showRegistModal, setShowRegistModal] = useState(false);
 
   const handleClickDetail = () => {
     setShowDetailContent(true);
   };
 
   const handleClickRegist = () => {
-    setShowRegistSection(true);
+    setShowRegistModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowRegistModal(false);
   };
 
   const renderDetailContent = () => {
@@ -37,7 +41,6 @@ function Home({ location }) {
     return (
       <Fragment>
         <WeddingSection isInvitation={isInvitation} onClickRegist={handleClickRegist} />
-        {showRegistSection && <RegistSection />}
         <StorySection />
         <PhotoSection />
         <WishesSection />
@@ -56,6 +59,7 @@ function Home({ location }) {
         onClickDetail={handleClickDetail}
       />
       {renderDetailContent()}
+      <RegistModal isOpen={showRegistModal} onClose={handleCloseModal} />
       <FloatingMusic />
     </MainLayout>
   );
