@@ -11,6 +11,11 @@ exports.onRenderBody = ({ setHeadComponents }) => {
       key="googleFontsDancingScript"
       href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&display=swap" 
       rel="stylesheet"
+    />,
+    <script
+      key="cloudinaryUploadWidget"
+      src="https://upload-widget.cloudinary.com/global/all.js"
+      type="text/javascript"
     />
   ])
 }

@@ -38,6 +38,9 @@ function MainLayout({ children }) {
           type="text/css"
         />
         <link href="https://fonts.googleapis.com/css2?family=Cookie&display=swap" rel="stylesheet"></link>
+        
+        {/* Cloudinary Upload Widget */}
+        <script src="https://upload-widget.cloudinary.com/global/all.js" type="text/javascript"></script>
       </Helmet>
       <div id="page">{children}</div>
     </Fragment>
