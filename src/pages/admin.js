@@ -5,6 +5,7 @@ function AdminPage() {
   const [registrations, setRegistrations] = useState([]);
   const [wishes, setWishes] = useState([]);
   const [copied, setCopied] = useState(false);
+  const [selectedWishes, setSelectedWishes] = useState([]);
 
   useEffect(() => {
     // Lấy dữ liệu registrations từ localStorage
@@ -62,7 +63,42 @@ function AdminPage() {
       } else {
         localStorage.removeItem('wishes');
         setWishes([]);
+        setSelectedWishes([]);
       }
+    }
+  };
+
+  const handleSelectWish = (wishId) => {
+    setSelectedWishes(prev => {
+      if (prev.includes(wishId)) {
+        return prev.filter(id => id !== wishId);
+      }
+      return [...prev, wishId];
+    });
+  };
+
+  const handleSelectAllWishes = (e) => {
+    if (e.target.checked) {
+      setSelectedWishes(wishes.map(w => w.id));
+    } else {
+      setSelectedWishes([]);
+    }
+  };
+
+  const handleDeleteSelectedWishes = () => {
+    if (selectedWishes.length === 0) {
+      alert('Vui lòng chọn ít nhất một lời chúc để xóa');
+      return;
+    }
+
+    if (window.confirm(`Bạn chắc chắn muốn xóa ${selectedWishes.length} lời chúc đã chọn?`)) {
+      const updatedWishes = wishes.filter(w => !selectedWishes.includes(w.id));
+      setWishes(updatedWishes);
+      localStorage.setItem('wishes', JSON.stringify(updatedWishes));
+      setSelectedWishes([]);
+      
+      // Dispatch event để cập nhật wishes section
+      window.dispatchEvent(new Event('storage'));
     }
   };
 
@@ -162,87 +198,115 @@ function AdminPage() {
         <p><strong>Tổng lời chúc:</strong> {wishes.length}</p>
         <p><strong>Có ảnh:</strong> {wishes.filter(w => w.imageUrl || w.image).length}</p>
         <p><strong>Không có ảnh:</strong> {wishes.filter(w => !w.imageUrl && !w.image).length}</p>
-      </div>
-
-      <div style={{
-        display: 'grid',
-        gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-        gap: '20px',
-        marginBottom: '20px'
-      }}>
-        {wishes.length === 0 ? (
-          <div style={{ 
-            padding: '40px', 
-            textAlign: 'center', 
-            color: '#999',
-            background: 'white',
-            borderRadius: '8px',
-            gridColumn: '1 / -1'
-          }}>
-            Không có lời chúc nào
-          </div>
-        ) : (
-          wishes.map((wish, index) => (
-            <div key={wish.id} style={{
-              background: 'white',
-              borderRadius: '8px',
-              padding: '20px',
-              boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-              display: 'flex',
-              flexDirection: 'column'
-            }}>
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                marginBottom: '10px',
-                paddingBottom: '10px',
-                borderBottom: '1px solid #eee'
-              }}>
-                <strong style={{ color: '#c8966b', fontSize: '16px' }}>{wish.name}</strong>
-                <span style={{ fontSize: '11px', color: '#999' }}>
-                  {new Date(wish.timestamp).toLocaleDateString('vi-VN')}
-                </span>
-              </div>
-              
-              {(wish.imageUrl || wish.image) && (
-                <div style={{ marginBottom: '15px' }}>
-                  <img 
-                    src={wish.imageUrl || wish.image} 
-                    alt="Wish" 
-                    style={{
-                      width: '100%',
-                      maxHeight: '200px',
-                      objectFit: 'cover',
-                      borderRadius: '6px'
-                    }}
-                  />
-                </div>
-              )}
-              
-              <p style={{
-                fontSize: '14px',
-                lineHeight: '1.6',
-                color: '#333',
-                marginBottom: '10px',
-                flex: 1
-              }}>
-                {wish.message}
-              </p>
-              
-              <div style={{
-                fontSize: '11px',
-                color: '#999',
-                marginTop: 'auto',
-                paddingTop: '10px',
-                borderTop: '1px solid #eee'
-              }}>
-                {wish.date}
-              </div>
-            </div>
-          ))
+        {selectedWishes.length > 0 && (
+          <p style={{ color: '#c8966b', fontWeight: 'bold' }}>
+            ✓ Đã chọn: {selectedWishes.length} lời chúc
+          </p>
         )}
       </div>
+
+      {selectedWishes.length > 0 && (
+        <div style={{ marginBottom: '20px' }}>
+          <button 
+            onClick={handleDeleteSelectedWishes}
+            style={{
+              padding: '10px 20px',
+              background: '#dc3545',
+              color: 'white',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              fontSize: '14px',
+              fontWeight: 'bold'
+            }}
+          >
+            🗑️ Xóa {selectedWishes.length} lời chúc đã chọn
+          </button>
+        </div>
+      )}
+
+      <table style={{
+        width: '100%',
+        borderCollapse: 'collapse',
+        background: 'white',
+        boxShadow: '0 2px 4px rgba(0,0,0,0.1)'
+      }}>
+        <thead>
+          <tr style={{ background: '#f8f9fa', borderBottom: '2px solid #ddd' }}>
+            <th style={{ padding: '12px', textAlign: 'center', width: '50px', borderRight: '1px solid #ddd' }}>
+              <input 
+                type="checkbox"
+                checked={wishes.length > 0 && selectedWishes.length === wishes.length}
+                onChange={handleSelectAllWishes}
+                style={{ cursor: 'pointer', width: '16px', height: '16px' }}
+              />
+            </th>
+            <th style={{ padding: '12px', textAlign: 'left', borderRight: '1px solid #ddd', width: '15%' }}>Tên</th>
+            <th style={{ padding: '12px', textAlign: 'left', borderRight: '1px solid #ddd', width: '35%' }}>Lời chúc</th>
+            <th style={{ padding: '12px', textAlign: 'center', borderRight: '1px solid #ddd', width: '150px' }}>Ảnh</th>
+            <th style={{ padding: '12px', textAlign: 'left', width: '15%' }}>Thời gian</th>
+          </tr>
+        </thead>
+        <tbody>
+          {wishes.length === 0 ? (
+            <tr>
+              <td colSpan="5" style={{ padding: '20px', textAlign: 'center', color: '#999' }}>
+                Không có lời chúc nào
+              </td>
+            </tr>
+          ) : (
+            wishes.map((wish, index) => (
+              <tr 
+                key={wish.id} 
+                style={{ 
+                  borderBottom: '1px solid #eee',
+                  background: selectedWishes.includes(wish.id) 
+                    ? '#fff3cd' 
+                    : index % 2 === 0 ? '#ffffff' : '#f9f9f9'
+                }}
+              >
+                <td style={{ padding: '12px', textAlign: 'center', borderRight: '1px solid #ddd' }}>
+                  <input 
+                    type="checkbox"
+                    checked={selectedWishes.includes(wish.id)}
+                    onChange={() => handleSelectWish(wish.id)}
+                    style={{ cursor: 'pointer', width: '16px', height: '16px' }}
+                  />
+                </td>
+                <td style={{ padding: '12px', borderRight: '1px solid #ddd', fontWeight: 'bold', color: '#c8966b' }}>
+                  {wish.name}
+                </td>
+                <td style={{ padding: '12px', borderRight: '1px solid #ddd', fontSize: '14px', lineHeight: '1.5' }}>
+                  {wish.message.length > 150 
+                    ? wish.message.substring(0, 150) + '...' 
+                    : wish.message}
+                </td>
+                <td style={{ padding: '12px', textAlign: 'center', borderRight: '1px solid #ddd' }}>
+                  {(wish.imageUrl || wish.image) ? (
+                    <img 
+                      src={wish.imageUrl || wish.image} 
+                      alt="Wish" 
+                      style={{
+                        width: '80px',
+                        height: '80px',
+                        objectFit: 'cover',
+                        borderRadius: '4px',
+                        cursor: 'pointer'
+                      }}
+                      onClick={() => window.open(wish.imageUrl || wish.image, '_blank')}
+                    />
+                  ) : (
+                    <span style={{ color: '#999', fontSize: '12px' }}>Không có</span>
+                  )}
+                </td>
+                <td style={{ padding: '12px', fontSize: '12px', color: '#666' }}>
+                  {wish.date || new Date(wish.timestamp).toLocaleString('vi-VN')}
+                </td>
+              </tr>
+            ))
+          )}
+        </tbody>
+      </table>
 
       <div style={{ marginTop: '40px', padding: '20px', background: '#f0f0f0', borderRadius: '8px' }}>
         <h3>📝 JSON Data</h3>
