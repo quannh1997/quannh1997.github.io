@@ -11,7 +11,6 @@ import RegistModal from '@components/RegistSection';
 import StorySection from '@components/StorySection';
 import PhotoSection from '@components/PhotoSection/Loadable';
 import WishesSection from '@components/WishesSection';
-import FooterSection from '@components/FooterSection';
 import FloatingMusic from '@components/FloatingMusic/Loadable';
 
 function Home({ location }) {
@@ -43,8 +42,7 @@ function Home({ location }) {
         <WeddingSection isInvitation={isInvitation} onClickRegist={handleClickRegist} />
         <StorySection />
         <PhotoSection />
-        <WishesSection />
-        <FooterSection isInvitation={isInvitation} />
+        <WishesSection isInvitation={isInvitation} />
       </Fragment>
     );
   };

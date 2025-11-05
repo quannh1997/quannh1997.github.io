@@ -1,6 +1,7 @@
 import React from 'react';
 import { string, bool } from 'prop-types';
 import { styWrapperItem, styWithAnimation } from './styles';
+import defaultAvatar from '@assets/images//user.png';
 
 function WishesItem({ image, name, infoName, description, isActive }) {
   if (!isActive) return null;
@@ -10,7 +11,7 @@ function WishesItem({ image, name, infoName, description, isActive }) {
       <div className="item" css={styWrapperItem}>
         <div className={`testimony-slide text-center ${isActive ? 'active' : 'hide'}`}>
           <figure>
-            <img src={image} alt="user" loading="lazy" />
+            <img src={image || defaultAvatar} alt={name} loading="lazy" />
           </figure>
           <h4>{name}</h4>
           <span className="infoName">{infoName}</span>
@@ -26,7 +27,7 @@ function WishesItem({ image, name, infoName, description, isActive }) {
 }
 
 WishesItem.propTypes = {
-  image: string.isRequired,
+  image: string,
   name: string.isRequired,
   infoName: string.isRequired,
   description: string.isRequired,
