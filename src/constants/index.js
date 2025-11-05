@@ -5,12 +5,12 @@ export const GOOGLE_CALENDAR_LINK = `https://calendar.google.com/calendar/event?
 
 // Địa điểm nhà trai
 export const GROOM_LOCATION_NAME = `Tư gia nhà trai`;
-export const GROOM_LOCATION_ADDRESS = `Thị trấn Quỳ Hợp, huyện Quỳ Hợp, tỉnh Nghệ An`;
+export const GROOM_LOCATION_ADDRESS = `Xóm Hợp Hòa, xã Quỳ Hợp, huyện Quỳ Hợp, tỉnh Nghệ An`;
 export const GROOM_MAPS_LINK = `https://maps.app.goo.gl/ZW1vjM58ZCJPZ3a19`;
 
 // Địa điểm nhà gái
 export const BRIDE_LOCATION_NAME = `Tư gia nhà gái`;
-export const BRIDE_LOCATION_ADDRESS = `Xã Yên Mô, huyện Yên Khánh, tỉnh Ninh Bình`;
+export const BRIDE_LOCATION_ADDRESS = `Tổ dân phố 4 Tịch Trân, phường Yên Thắng, tỉnh Ninh Bình`;
 export const BRIDE_MAPS_LINK = `https://maps.google.com/?q=20.1797241,105.9737027&entry=gps&lucs=,94275415,94224825,94227247,94227248,94231188,94280568,47071704,47069508,94218641,94282134,94203019,47084304&g_st=ipc`;
 
 /**
