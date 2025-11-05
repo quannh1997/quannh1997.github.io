@@ -45,6 +45,27 @@ function RegistModal({ isOpen, onClose }) {
       // Lưu vào localStorage (append, không replace)
       localStorage.setItem('registrations', JSON.stringify(registrations));
       
+      // Gọi API để lưu vào file
+      try {
+        const response = await fetch('/api/save-registrations', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(registrations)
+        });
+        
+        if (!response.ok) {
+          console.warn('⚠️ Không thể lưu vào file, nhưng đã lưu vào localStorage');
+        } else {
+          const result = await response.json();
+          console.log('✅ Đã lưu registrations vào file:', result);
+        }
+      } catch (apiError) {
+        console.warn('⚠️ API error:', apiError.message);
+        // Vẫn tiếp tục vì đã lưu vào localStorage
+      }
+      
       alert(`Cảm ơn ${formData.name} đã đăng ký tham dự!`);
       
       // Reset form

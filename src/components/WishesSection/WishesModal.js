@@ -61,6 +61,27 @@ function WishesModal({ isOpen, onClose }) {
       // Lưu vào localStorage
       localStorage.setItem('wishes', JSON.stringify(wishes));
       
+      // Gọi API để lưu vào file
+      try {
+        const response = await fetch('/api/save-wishes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(wishes)
+        });
+        
+        if (!response.ok) {
+          console.warn('⚠️ Không thể lưu vào file, nhưng đã lưu vào localStorage');
+        } else {
+          const result = await response.json();
+          console.log('✅ Đã lưu vào file:', result);
+        }
+      } catch (apiError) {
+        console.warn('⚠️ API error:', apiError.message);
+        // Vẫn tiếp tục vì đã lưu vào localStorage
+      }
+      
       // Dispatch custom event to notify WishesContainer
       if (typeof window !== 'undefined') {
         window.dispatchEvent(new Event('wishAdded'));

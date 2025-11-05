@@ -68,7 +68,7 @@ function AdminPage() {
     document.body.removeChild(element);
   };
 
-  const handleClearData = () => {
+  const handleClearData = async () => {
     const confirmMsg = activeTab === 'registrations' 
       ? 'Bạn chắc chắn muốn xóa tất cả dữ liệu đăng ký?'
       : activeTab === 'wishes'
@@ -79,14 +79,51 @@ function AdminPage() {
       if (activeTab === 'registrations') {
         localStorage.removeItem('registrations');
         setRegistrations([]);
+        
+        // Gọi API để lưu vào file
+        try {
+          await fetch('/api/save-registrations', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify([])
+          });
+        } catch (error) {
+          console.warn('⚠️ Không thể lưu vào file:', error.message);
+        }
       } else if (activeTab === 'wishes') {
         localStorage.removeItem('wishes');
         setWishes([]);
         setSelectedWishes([]);
+        
+        // Gọi API để lưu vào file
+        try {
+          await fetch('/api/save-wishes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify([])
+          });
+        } catch (error) {
+          console.warn('⚠️ Không thể lưu vào file:', error.message);
+        }
+        
+        window.dispatchEvent(new Event('storage'));
       } else {
         localStorage.removeItem('stories');
         setStories([]);
         setSelectedStories([]);
+        
+        // Gọi API để lưu vào file
+        try {
+          await fetch('/api/save-stories', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify([])
+          });
+        } catch (error) {
+          console.warn('⚠️ Không thể lưu vào file:', error.message);
+        }
+        
+        window.dispatchEvent(new CustomEvent('storyUpdated'));
       }
     }
   };
@@ -108,7 +145,7 @@ function AdminPage() {
     }
   };
 
-  const handleDeleteSelectedWishes = () => {
+  const handleDeleteSelectedWishes = async () => {
     if (selectedWishes.length === 0) {
       alert('Vui lòng chọn ít nhất một lời chúc để xóa');
       return;
@@ -119,6 +156,23 @@ function AdminPage() {
       setWishes(updatedWishes);
       localStorage.setItem('wishes', JSON.stringify(updatedWishes));
       setSelectedWishes([]);
+      
+      // Gọi API để lưu vào file
+      try {
+        const response = await fetch('/api/save-wishes', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedWishes)
+        });
+        
+        if (response.ok) {
+          console.log('✅ Đã cập nhật wishes vào file');
+        }
+      } catch (error) {
+        console.warn('⚠️ Không thể lưu vào file:', error.message);
+      }
       
       // Dispatch event để cập nhật wishes section
       window.dispatchEvent(new Event('storage'));
@@ -142,7 +196,7 @@ function AdminPage() {
     }
   };
 
-  const handleDeleteSelectedStories = () => {
+  const handleDeleteSelectedStories = async () => {
     if (selectedStories.length === 0) {
       alert('Vui lòng chọn ít nhất một câu chuyện để xóa');
       return;
@@ -153,6 +207,23 @@ function AdminPage() {
       setStories(updatedStories);
       localStorage.setItem('stories', JSON.stringify(updatedStories));
       setSelectedStories([]);
+      
+      // Gọi API để lưu vào file
+      try {
+        const response = await fetch('/api/save-stories', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(updatedStories)
+        });
+        
+        if (response.ok) {
+          console.log('✅ Đã cập nhật stories vào file');
+        }
+      } catch (error) {
+        console.warn('⚠️ Không thể lưu vào file:', error.message);
+      }
       
       // Dispatch event để cập nhật story section
       window.dispatchEvent(new CustomEvent('storyUpdated'));

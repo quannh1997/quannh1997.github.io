@@ -87,7 +87,7 @@ function StoryModal({ isOpen, onClose, editStory, editIndex }) {
     }
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!formData.title.trim() || !formData.date.trim() || !formData.description.trim()) {
@@ -118,6 +118,27 @@ function StoryModal({ isOpen, onClose, editStory, editIndex }) {
 
     // Lưu vào localStorage
     localStorage.setItem('stories', JSON.stringify(updatedStories));
+
+    // Gọi API để lưu vào file
+    try {
+      const response = await fetch('/api/save-stories', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedStories)
+      });
+      
+      if (!response.ok) {
+        console.warn('⚠️ Không thể lưu vào file, nhưng đã lưu vào localStorage');
+      } else {
+        const result = await response.json();
+        console.log('✅ Đã lưu stories vào file:', result);
+      }
+    } catch (apiError) {
+      console.warn('⚠️ API error:', apiError.message);
+      // Vẫn tiếp tục vì đã lưu vào localStorage
+    }
 
     // Dispatch custom event để cập nhật StorySection
     window.dispatchEvent(new CustomEvent('storyUpdated'));
