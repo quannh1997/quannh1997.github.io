@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useEffect } from 'react';
 
 import StoryItem from './StoryItem';
-import { stories as defaultStories } from './stories-data';
 import { getStories } from '../../helpers/firebase';
+import { globalStyles, styWrapper } from './styles';
 
 function StorySection() {
-  const [stories, setStories] = useState(defaultStories);
+  const [stories, setStories] = useState([]);
 
   useEffect(() => {
     // Lấy dữ liệu stories từ Firebase
@@ -15,11 +15,11 @@ function StorySection() {
         if (firebaseStories && firebaseStories.length > 0) {
           setStories(firebaseStories);
         } else {
-          setStories(defaultStories);
+          setStories([]);
         }
       } catch (error) {
         console.error('Lỗi load dữ liệu stories từ Firebase:', error);
-        setStories(defaultStories);
+        setStories([]);
       }
     };
 
@@ -43,12 +43,12 @@ function StorySection() {
 
   return (
     <Fragment>
-      <div id="fh5co-couple-story">
+      <div id="fh5co-couple-story" css={[styWrapper, globalStyles]}>
         <div className="container">
           <div className="row">
             <div className="col-md-8 col-md-offset-2 text-center fh5co-heading animate-box">
-              <h2 className="main-font">Jalan Berdua</h2>
-              <p className="sub-title">Kisah kasih sejak awal kami berjumpa</p>
+              <h2 className="main-font__story">Cưới thôi, hẹn hò vậy đủ lâu rồi</h2>
+              <p className="sub-title"></p>
             </div>
           </div>
           <div className="row">

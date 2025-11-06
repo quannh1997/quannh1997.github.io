@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 
 import WishesItem from './WishesItem';
-import { wishlist as defaultWishlist } from './wishlist-data';
 import { styButtonWrapper, styWishesContainer } from './styles';
 import { getWishes } from '../../helpers/firebase';
 
@@ -27,15 +26,13 @@ function WishesContainer() {
             image: wish.imageUrl || wish.image || null
           }));
           
-          // Combine with default wishlist (optional - show both)
-          setWishlist([...formattedWishes, ...defaultWishlist]);
+          setWishlist(formattedWishes);
         } else {
-          // Fallback to default wishlist if no data in Firebase
-          setWishlist(defaultWishlist);
+          setWishlist([]);
         }
       } catch (error) {
         console.error('Error loading wishes from Firebase:', error);
-        setWishlist(defaultWishlist);
+        setWishlist([]);
       }
     };
 

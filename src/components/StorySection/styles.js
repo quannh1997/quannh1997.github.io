@@ -1,12 +1,87 @@
 import { css } from '@emotion/core';
 
-export const styWrapper = (noImage) => css`
-  ${noImage && `margin-left: 100px;`}
+export const styWrapper = css`
+  .main-font__story {
+    font-family: 'Dancing Script', 'Cookie', cursive;
+    font-size: 3em;
+    font-weight: 700;
+    margin-bottom: 0;
+    
+    @media screen and (max-width: 768px) {
+      font-size: 2em;
+      margin-bottom: 0;
+      line-height: 1.2;
+    }
+    
+    @media screen and (max-width: 400px) {
+      font-size: 2em;
+    }
+  }
 
-  @media screen and (max-width: 991px) {
-    ${noImage && `margin-left: 100px;`}
+  /* Desktop timeline customization */
+  @media screen and (min-width: 481px) {
+    .timeline > li > .timeline-badge {
+      width: 190px !important;
+      height: 190px !important;
+      margin-left: -95px !important;
+    }
+  }
+
+  /* Mobile timeline customization */
+  @media screen and (max-width: 480px) {
+    ul.timeline:before {
+      margin-left: 0px !important;
+      top: 10px !important;
+    }
+
+    ul.timeline > li > .timeline-badge {
+      width: 150px !important;
+      height: 150px !important;
+      left: 15px !important;
+      margin-left: 0 !important;
+      top: -15px !important;
+    }
+
+    ul.timeline > li > .timeline-panel {
+      width: calc(100% - 180px) !important;
+      margin-left: 10px !important;
+    }
+
+    .timeline-body {
+      font-size: 13px !important;
+      line-height: 1.4 !important;
+      
+      p {
+        font-size: 13px !important;
+        margin-bottom: 0 !important;
+      }
+    }
+
+    .timeline-panel {
+      padding: 15px 10px !important;
+    }
+
+    .timeline-heading {
+      margin-bottom: 10px !important;
+      
+      .timeline-title {
+        font-size: 16px !important;
+        margin-bottom: 5px !important;
+      }
+      
+      .date {
+        font-size: 11px !important;
+        margin-bottom: 10px !important;
+      }
+    }
   }
 `;
+
+const globalStyles = css`
+  @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Montserrat:wght@400;500;600;700&display=swap');
+`;
+
+export { globalStyles };
 
 export const styModalWrapper = css`
   position: fixed;

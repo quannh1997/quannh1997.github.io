@@ -11,14 +11,14 @@ export const styWrapper = css`
   width: 100%;
   min-height: auto;
   padding: 40px 0;
-  color: #333;
+  // color: #333;
 
   .main-font__photo {
     font-family: 'Dancing Script', 'Cookie', cursive;
     font-size: 3em;
     font-weight: 700;
     margin-bottom: 0;
-    color: #333;
+    // color: #333;
     
     @media screen and (max-width: 768px) {
       font-size: 2em;
