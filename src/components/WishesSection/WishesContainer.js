@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import WishesItem from './WishesItem';
 import { wishlist as defaultWishlist } from './wishlist-data';
 import { styButtonWrapper, styWishesContainer } from './styles';
+import { getWishes } from '../../helpers/firebase';
 
 const INTERVAL_SLIDE = 10000;
 
@@ -11,55 +12,42 @@ function WishesContainer() {
   const [pauseSlide, setPauseSlide] = useState(false);
   const [wishlist, setWishlist] = useState([]);
 
-  // Load wishes from localStorage
+  // Load wishes from Firebase
   useEffect(() => {
-    const loadWishes = () => {
+    const loadWishes = async () => {
       try {
-        const storedWishes = localStorage.getItem('wishes');
-        if (storedWishes) {
-          const parsedWishes = JSON.parse(storedWishes);
-          if (Array.isArray(parsedWishes) && parsedWishes.length > 0) {
-            // Transform localStorage data to match WishesItem format
-            const formattedWishes = parsedWishes.map(wish => ({
-              name: wish.name,
-              infoName: wish.date || new Date(wish.timestamp).toLocaleDateString('vi-VN'),
-              description: wish.message,
-              image: wish.imageUrl || wish.image || null
-            }));
-            
-            // Combine with default wishlist (optional - show both)
-            setWishlist([...formattedWishes, ...defaultWishlist]);
-            return;
-          }
-        }
+        const firebaseWishes = await getWishes();
         
-        // Fallback to default wishlist if no data in localStorage
-        setWishlist(defaultWishlist);
+        if (firebaseWishes && firebaseWishes.length > 0) {
+          // Transform Firebase data to match WishesItem format
+          const formattedWishes = firebaseWishes.map(wish => ({
+            name: wish.name,
+            infoName: wish.date || new Date(wish.timestamp).toLocaleDateString('vi-VN'),
+            description: wish.message,
+            image: wish.imageUrl || wish.image || null
+          }));
+          
+          // Combine with default wishlist (optional - show both)
+          setWishlist([...formattedWishes, ...defaultWishlist]);
+        } else {
+          // Fallback to default wishlist if no data in Firebase
+          setWishlist(defaultWishlist);
+        }
       } catch (error) {
-        console.error('Error loading wishes from localStorage:', error);
+        console.error('Error loading wishes from Firebase:', error);
         setWishlist(defaultWishlist);
       }
     };
 
     loadWishes();
 
-    // Listen for storage changes (when new wish is added)
-    const handleStorageChange = (e) => {
-      if (e.key === 'wishes') {
-        loadWishes();
-      }
-    };
-
-    window.addEventListener('storage', handleStorageChange);
-
-    // Custom event listener for same-tab updates
+    // Custom event listener for real-time updates
     const handleWishAdded = () => {
       loadWishes();
     };
     window.addEventListener('wishAdded', handleWishAdded);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
       window.removeEventListener('wishAdded', handleWishAdded);
     };
   }, []);

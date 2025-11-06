@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { bool, func, object, number } from 'prop-types';
+import { bool, func, object } from 'prop-types';
 import { styModalWrapper } from './styles';
+import { saveStory, updateStory } from '../../helpers/firebase';
 
 const CLOUDINARY_CLOUD_NAME = 'ddr3jvlpu'; 
 const CLOUDINARY_UPLOAD_PRESET = 'wedding-wishes'; 
@@ -95,9 +96,6 @@ function StoryModal({ isOpen, onClose, editStory, editIndex }) {
       return;
     }
 
-    // Lấy danh sách stories hiện tại từ localStorage
-    const existingStories = JSON.parse(localStorage.getItem('stories') || '[]');
-
     const storyData = {
       title: formData.title.trim(),
       date: formData.date.trim(),
@@ -105,56 +103,38 @@ function StoryModal({ isOpen, onClose, editStory, editIndex }) {
       image: formData.imageUrl || '',
     };
 
-    let updatedStories;
-    
-    if (editStory && editIndex !== null && editIndex !== undefined) {
-      // Edit mode - update existing story
-      updatedStories = [...existingStories];
-      updatedStories[editIndex] = storyData;
-    } else {
-      // Add mode - add new story
-      updatedStories = [...existingStories, storyData];
-    }
-
-    // Lưu vào localStorage
-    localStorage.setItem('stories', JSON.stringify(updatedStories));
-
-    // Gọi API để lưu vào file
     try {
-      const response = await fetch('/api/save-stories', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedStories)
-      });
+      let result;
       
-      if (!response.ok) {
-        console.warn('⚠️ Không thể lưu vào file, nhưng đã lưu vào localStorage');
+      if (editStory && editStory.id) {
+        // Edit mode - update existing story in Firebase
+        result = await updateStory(editStory.id, storyData);
       } else {
-        const result = await response.json();
-        console.log('✅ Đã lưu stories vào file:', result);
+        // Add mode - add new story to Firebase
+        result = await saveStory(storyData);
       }
-    } catch (apiError) {
-      console.warn('⚠️ API error:', apiError.message);
-      // Vẫn tiếp tục vì đã lưu vào localStorage
+
+      if (result.success) {
+        // Dispatch custom event để cập nhật StorySection
+        window.dispatchEvent(new CustomEvent('storyUpdated'));
+
+        // Reset form
+        setFormData({
+          title: '',
+          date: '',
+          description: '',
+          imageUrl: '',
+        });
+
+        onClose();
+        alert(editStory ? 'Đã cập nhật câu chuyện!' : 'Đã thêm câu chuyện mới!');
+      } else {
+        throw new Error(result.error || 'Không thể lưu câu chuyện');
+      }
+    } catch (error) {
+      console.error('Error saving story:', error);
+      alert('Có lỗi xảy ra. Vui lòng thử lại!');
     }
-
-    // Dispatch custom event để cập nhật StorySection
-    window.dispatchEvent(new CustomEvent('storyUpdated'));
-
-    // Reset form
-    setFormData({
-      title: '',
-      date: '',
-      description: '',
-      imageUrl: '',
-    });
-
-    // Đóng modal
-    onClose();
-
-    alert(editStory ? 'Cập nhật câu chuyện thành công! ✨' : 'Thêm câu chuyện thành công! ✨');
   };
 
   const handleOverlayClick = (e) => {
@@ -262,7 +242,6 @@ StoryModal.propTypes = {
   isOpen: bool.isRequired,
   onClose: func.isRequired,
   editStory: object,
-  editIndex: number,
 };
 
 export default StoryModal;

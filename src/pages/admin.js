@@ -1,6 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet';
 import StoryModal from '../components/StorySection/StoryModal';
+import { 
+  getRegistrations, 
+  deleteRegistration, 
+  getWishes, 
+  deleteWish, 
+  getStories, 
+  deleteStory,
+  deleteMultipleItems 
+} from '../helpers/firebase';
 
 function AdminPage() {
   const [activeTab, setActiveTab] = useState('registrations');
@@ -15,36 +24,27 @@ function AdminPage() {
   const [editingStoryIndex, setEditingStoryIndex] = useState(null);
 
   useEffect(() => {
-    // Lấy dữ liệu registrations từ localStorage
-    const regData = localStorage.getItem('registrations');
-    if (regData) {
-      try {
-        setRegistrations(JSON.parse(regData));
-      } catch (error) {
-        console.error('Lỗi parse dữ liệu registrations:', error);
-      }
-    }
-
-    // Lấy dữ liệu wishes từ localStorage
-    const wishData = localStorage.getItem('wishes');
-    if (wishData) {
-      try {
-        setWishes(JSON.parse(wishData));
-      } catch (error) {
-        console.error('Lỗi parse dữ liệu wishes:', error);
-      }
-    }
-
-    // Lấy dữ liệu stories từ localStorage
-    const storyData = localStorage.getItem('stories');
-    if (storyData) {
-      try {
-        setStories(JSON.parse(storyData));
-      } catch (error) {
-        console.error('Lỗi parse dữ liệu stories:', error);
-      }
-    }
+    // Load all data from Firebase
+    loadAllData();
   }, []);
+
+  const loadAllData = async () => {
+    try {
+      // Lấy dữ liệu registrations từ Firebase
+      const regData = await getRegistrations();
+      setRegistrations(regData || []);
+
+      // Lấy dữ liệu wishes từ Firebase
+      const wishData = await getWishes();
+      setWishes(wishData || []);
+
+      // Lấy dữ liệu stories từ Firebase
+      const storyData = await getStories();
+      setStories(storyData || []);
+    } catch (error) {
+      console.error('Lỗi load dữ liệu từ Firebase:', error);
+    }
+  };
 
   const handleCopyToClipboard = () => {
     const data = activeTab === 'registrations' ? registrations : activeTab === 'wishes' ? wishes : stories;
@@ -76,54 +76,28 @@ function AdminPage() {
       : 'Bạn chắc chắn muốn xóa tất cả câu chuyện?';
     
     if (window.confirm(confirmMsg)) {
-      if (activeTab === 'registrations') {
-        localStorage.removeItem('registrations');
-        setRegistrations([]);
-        
-        // Gọi API để lưu vào file
-        try {
-          await fetch('/api/save-registrations', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify([])
-          });
-        } catch (error) {
-          console.warn('⚠️ Không thể lưu vào file:', error.message);
+      try {
+        if (activeTab === 'registrations') {
+          const regIds = registrations.map(r => r.id);
+          await deleteMultipleItems('registrations', regIds);
+          setRegistrations([]);
+        } else if (activeTab === 'wishes') {
+          const wishIds = wishes.map(w => w.id);
+          await deleteMultipleItems('wishes', wishIds);
+          setWishes([]);
+          setSelectedWishes([]);
+          window.dispatchEvent(new Event('wishAdded'));
+        } else {
+          const storyIds = stories.map(s => s.id);
+          await deleteMultipleItems('stories', storyIds);
+          setStories([]);
+          setSelectedStories([]);
+          window.dispatchEvent(new CustomEvent('storyUpdated'));
         }
-      } else if (activeTab === 'wishes') {
-        localStorage.removeItem('wishes');
-        setWishes([]);
-        setSelectedWishes([]);
-        
-        // Gọi API để lưu vào file
-        try {
-          await fetch('/api/save-wishes', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify([])
-          });
-        } catch (error) {
-          console.warn('⚠️ Không thể lưu vào file:', error.message);
-        }
-        
-        window.dispatchEvent(new Event('storage'));
-      } else {
-        localStorage.removeItem('stories');
-        setStories([]);
-        setSelectedStories([]);
-        
-        // Gọi API để lưu vào file
-        try {
-          await fetch('/api/save-stories', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify([])
-          });
-        } catch (error) {
-          console.warn('⚠️ Không thể lưu vào file:', error.message);
-        }
-        
-        window.dispatchEvent(new CustomEvent('storyUpdated'));
+        alert('Đã xóa tất cả dữ liệu!');
+      } catch (error) {
+        console.error('Lỗi xóa dữ liệu:', error);
+        alert('Có lỗi xảy ra khi xóa!');
       }
     }
   };
@@ -152,45 +126,38 @@ function AdminPage() {
     }
 
     if (window.confirm(`Bạn chắc chắn muốn xóa ${selectedWishes.length} lời chúc đã chọn?`)) {
-      const updatedWishes = wishes.filter(w => !selectedWishes.includes(w.id));
-      setWishes(updatedWishes);
-      localStorage.setItem('wishes', JSON.stringify(updatedWishes));
-      setSelectedWishes([]);
-      
-      // Gọi API để lưu vào file
       try {
-        const response = await fetch('/api/save-wishes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedWishes)
-        });
+        // Xóa từ Firebase
+        await deleteMultipleItems('wishes', selectedWishes);
         
-        if (response.ok) {
-          console.log('✅ Đã cập nhật wishes vào file');
-        }
+        // Cập nhật UI
+        const updatedWishes = wishes.filter(w => !selectedWishes.includes(w.id));
+        setWishes(updatedWishes);
+        setSelectedWishes([]);
+        
+        // Dispatch event để cập nhật wishes section
+        window.dispatchEvent(new Event('wishAdded'));
+        
+        alert('Đã xóa lời chúc thành công!');
       } catch (error) {
-        console.warn('⚠️ Không thể lưu vào file:', error.message);
+        console.error('Lỗi xóa wishes:', error);
+        alert('Có lỗi xảy ra khi xóa!');
       }
-      
-      // Dispatch event để cập nhật wishes section
-      window.dispatchEvent(new Event('storage'));
     }
   };
 
-  const handleSelectStory = (storyIndex) => {
+  const handleSelectStory = (storyId) => {
     setSelectedStories(prev => {
-      if (prev.includes(storyIndex)) {
-        return prev.filter(idx => idx !== storyIndex);
+      if (prev.includes(storyId)) {
+        return prev.filter(id => id !== storyId);
       }
-      return [...prev, storyIndex];
+      return [...prev, storyId];
     });
   };
 
   const handleSelectAllStories = (e) => {
     if (e.target.checked) {
-      setSelectedStories(stories.map((_, idx) => idx));
+      setSelectedStories(stories.map(s => s.id));
     } else {
       setSelectedStories([]);
     }
@@ -203,30 +170,23 @@ function AdminPage() {
     }
 
     if (window.confirm(`Bạn chắc chắn muốn xóa ${selectedStories.length} câu chuyện đã chọn?`)) {
-      const updatedStories = stories.filter((_, idx) => !selectedStories.includes(idx));
-      setStories(updatedStories);
-      localStorage.setItem('stories', JSON.stringify(updatedStories));
-      setSelectedStories([]);
-      
-      // Gọi API để lưu vào file
       try {
-        const response = await fetch('/api/save-stories', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(updatedStories)
-        });
+        // Xóa từ Firebase
+        await deleteMultipleItems('stories', selectedStories);
         
-        if (response.ok) {
-          console.log('✅ Đã cập nhật stories vào file');
-        }
+        // Cập nhật UI
+        const updatedStories = stories.filter(s => !selectedStories.includes(s.id));
+        setStories(updatedStories);
+        setSelectedStories([]);
+        
+        // Dispatch event để cập nhật story section
+        window.dispatchEvent(new CustomEvent('storyUpdated'));
+        
+        alert('Đã xóa câu chuyện thành công!');
       } catch (error) {
-        console.warn('⚠️ Không thể lưu vào file:', error.message);
+        console.error('Lỗi xóa stories:', error);
+        alert('Có lỗi xảy ra khi xóa!');
       }
-      
-      // Dispatch event để cập nhật story section
-      window.dispatchEvent(new CustomEvent('storyUpdated'));
     }
   };
 
@@ -236,17 +196,16 @@ function AdminPage() {
     setShowStoryModal(true);
   };
 
-  const handleEditStory = (story, index) => {
+  const handleEditStory = (story) => {
     setEditingStory(story);
-    setEditingStoryIndex(index);
     setShowStoryModal(true);
   };
 
-  const handleCloseStoryModal = () => {
+  const handleCloseStoryModal = async () => {
     setShowStoryModal(false);
     setEditingStory(null);
-    setEditingStoryIndex(null);
     // Refresh stories data
+    await loadAllData();
     const storyData = localStorage.getItem('stories');
     if (storyData) {
       try {
@@ -579,8 +538,8 @@ function AdminPage() {
                 <td style={{ padding: '12px', textAlign: 'center', borderRight: '1px solid #ddd' }}>
                   <input 
                     type="checkbox"
-                    checked={selectedStories.includes(index)}
-                    onChange={() => handleSelectStory(index)}
+                    checked={selectedStories.includes(story.id)}
+                    onChange={() => handleSelectStory(story.id)}
                     style={{ cursor: 'pointer', width: '16px', height: '16px' }}
                   />
                 </td>
@@ -615,7 +574,7 @@ function AdminPage() {
                 </td>
                 <td style={{ padding: '12px', textAlign: 'center' }}>
                   <button
-                    onClick={() => handleEditStory(story, index)}
+                    onClick={() => handleEditStory(story)}
                     style={{
                       padding: '6px 12px',
                       background: '#007bff',
@@ -771,7 +730,6 @@ function AdminPage() {
         isOpen={showStoryModal} 
         onClose={handleCloseStoryModal}
         editStory={editingStory}
-        editIndex={editingStoryIndex}
       />
       </div>
     </>

@@ -1,5 +1,6 @@
 import React, { Fragment, useState } from 'react';
 import { globalStyles, styWrapper } from './styles';
+import { saveRegistration } from '../../helpers/firebase';
 
 function RegistModal({ isOpen, onClose }) {
   const [formData, setFormData] = useState({
@@ -14,24 +15,8 @@ function RegistModal({ isOpen, onClose }) {
     setSubmitting(true);
 
     try {
-      // Đọc dữ liệu cũ từ localStorage trước
-      let registrations = [];
-      const localStorageData = localStorage.getItem('registrations');
-      if (localStorageData) {
-        try {
-          registrations = JSON.parse(localStorageData);
-          if (!Array.isArray(registrations)) {
-            registrations = [];
-          }
-        } catch (parseError) {
-          console.warn('Lỗi parse localStorage:', parseError);
-          registrations = [];
-        }
-      }
-
-      // Thêm dữ liệu mới
+      // Tạo dữ liệu registration mới
       const newRegistration = {
-        id: Date.now(),
         name: formData.name.trim(),
         event: formData.event,
         eventName: formData.event === 'bride' ? 'Nhà Gái' : 'Nhà Trai',
@@ -40,43 +25,24 @@ function RegistModal({ isOpen, onClose }) {
         date: new Date().toLocaleString('vi-VN')
       };
 
-      registrations.push(newRegistration);
-
-      // Lưu vào localStorage (append, không replace)
-      localStorage.setItem('registrations', JSON.stringify(registrations));
+      // Lưu vào Firebase
+      const result = await saveRegistration(newRegistration);
       
-      // Gọi API để lưu vào file
-      try {
-        const response = await fetch('/api/save-registrations', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(registrations)
+      if (result.success) {
+        alert(`Cảm ơn ${formData.name} đã đăng ký tham dự!`);
+        
+        // Reset form
+        setFormData({
+          event: 'bride',
+          name: '',
+          quantity: 1
         });
         
-        if (!response.ok) {
-          console.warn('⚠️ Không thể lưu vào file, nhưng đã lưu vào localStorage');
-        } else {
-          const result = await response.json();
-          console.log('✅ Đã lưu registrations vào file:', result);
-        }
-      } catch (apiError) {
-        console.warn('⚠️ API error:', apiError.message);
-        // Vẫn tiếp tục vì đã lưu vào localStorage
+        // Đóng modal
+        onClose();
+      } else {
+        throw new Error(result.error || 'Không thể lưu đăng ký');
       }
-      
-      alert(`Cảm ơn ${formData.name} đã đăng ký tham dự!`);
-      
-      // Reset form
-      setFormData({
-        event: 'bride',
-        name: '',
-        quantity: 1
-      });
-      
-      // Đóng modal
-      onClose();
     } catch (error) {
       console.error('❌ Lỗi submit form:', error);
       alert('Có lỗi xảy ra, vui lòng thử lại!');

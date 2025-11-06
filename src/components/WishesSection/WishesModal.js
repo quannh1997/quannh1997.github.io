@@ -1,6 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react';
 import { bool, func } from 'prop-types';
 import { styModalWrapper } from './styles';
+import { saveWish } from '../../helpers/firebase';
 
 // Cloudinary configuration
 const CLOUDINARY_CLOUD_NAME = 'ddr3jvlpu'; 
@@ -31,74 +32,39 @@ function WishesModal({ isOpen, onClose }) {
     setSubmitting(true);
 
     try {
-      // Đọc dữ liệu cũ từ localStorage
-      let wishes = [];
-      const localStorageData = localStorage.getItem('wishes');
-      if (localStorageData) {
-        try {
-          wishes = JSON.parse(localStorageData);
-          if (!Array.isArray(wishes)) {
-            wishes = [];
-          }
-        } catch (parseError) {
-          console.warn('Lỗi parse localStorage:', parseError);
-          wishes = [];
-        }
-      }
-
       // Tạo lời chúc mới
       const newWish = {
-        id: Date.now(),
         name: formData.name.trim(),
         message: formData.message.trim(),
-        imageUrl: formData.imageUrl || null, // Lưu URL thay vì Base64
+        imageUrl: formData.imageUrl || null,
         timestamp: new Date().toISOString(),
         date: new Date().toLocaleString('vi-VN')
       };
 
-      wishes.push(newWish);
-
-      // Lưu vào localStorage
-      localStorage.setItem('wishes', JSON.stringify(wishes));
+      // Lưu vào Firebase
+      const result = await saveWish(newWish);
       
-      // Gọi API để lưu vào file
-      try {
-        const response = await fetch('/api/save-wishes', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(wishes)
+      if (result.success) {
+        // Dispatch custom event to notify WishesContainer
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new Event('wishAdded'));
+        }
+        
+        alert(`Cảm ơn ${formData.name} đã gửi lời chúc!`);
+        
+        // Reset form
+        setFormData({
+          name: '',
+          message: '',
+          imageUrl: null,
+          imagePreview: null
         });
         
-        if (!response.ok) {
-          console.warn('⚠️ Không thể lưu vào file, nhưng đã lưu vào localStorage');
-        } else {
-          const result = await response.json();
-          console.log('✅ Đã lưu vào file:', result);
-        }
-      } catch (apiError) {
-        console.warn('⚠️ API error:', apiError.message);
-        // Vẫn tiếp tục vì đã lưu vào localStorage
+        // Đóng modal
+        onClose();
+      } else {
+        throw new Error(result.error || 'Không thể lưu lời chúc');
       }
-      
-      // Dispatch custom event to notify WishesContainer
-      if (typeof window !== 'undefined') {
-        window.dispatchEvent(new Event('wishAdded'));
-      }
-      
-      alert(`Cảm ơn ${formData.name} đã gửi lời chúc!`);
-      
-      // Reset form
-      setFormData({
-        name: '',
-        message: '',
-        imageUrl: null,
-        imagePreview: null
-      });
-      
-      // Đóng modal
-      onClose();
     } catch (error) {
       console.error('❌ Lỗi submit form:', error);
       alert('Có lỗi xảy ra, vui lòng thử lại!');

@@ -2,45 +2,38 @@ import React, { Fragment, useState, useEffect } from 'react';
 
 import StoryItem from './StoryItem';
 import { stories as defaultStories } from './stories-data';
+import { getStories } from '../../helpers/firebase';
 
 function StorySection() {
   const [stories, setStories] = useState(defaultStories);
 
   useEffect(() => {
-    // Lấy dữ liệu stories từ localStorage
-    const storiesData = localStorage.getItem('stories');
-    if (storiesData) {
+    // Lấy dữ liệu stories từ Firebase
+    const loadStories = async () => {
       try {
-        const parsedStories = JSON.parse(storiesData);
-        if (parsedStories.length > 0) {
-          setStories(parsedStories);
+        const firebaseStories = await getStories();
+        if (firebaseStories && firebaseStories.length > 0) {
+          setStories(firebaseStories);
+        } else {
+          setStories(defaultStories);
         }
       } catch (error) {
-        console.error('Lỗi parse dữ liệu stories:', error);
-      }
-    }
-
-    // Lắng nghe sự kiện storage để cập nhật real-time
-    const handleStorageChange = () => {
-      const updatedData = localStorage.getItem('stories');
-      if (updatedData) {
-        try {
-          const parsedStories = JSON.parse(updatedData);
-          setStories(parsedStories.length > 0 ? parsedStories : defaultStories);
-        } catch (error) {
-          console.error('Lỗi parse dữ liệu stories:', error);
-        }
-      } else {
+        console.error('Lỗi load dữ liệu stories từ Firebase:', error);
         setStories(defaultStories);
       }
     };
 
-    window.addEventListener('storage', handleStorageChange);
-    window.addEventListener('storyUpdated', handleStorageChange);
+    loadStories();
+
+    // Lắng nghe sự kiện storyUpdated để cập nhật real-time
+    const handleStoryUpdated = () => {
+      loadStories();
+    };
+
+    window.addEventListener('storyUpdated', handleStoryUpdated);
 
     return () => {
-      window.removeEventListener('storage', handleStorageChange);
-      window.removeEventListener('storyUpdated', handleStorageChange);
+      window.removeEventListener('storyUpdated', handleStoryUpdated);
     };
   }, []);
 
